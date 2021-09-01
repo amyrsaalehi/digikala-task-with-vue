@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     maxValue() {
-      return this.$store.state.inits.filters.price.options.max;
+      return this.$store.state.inits.inits.filters.price.options.max;
     },
     minValue() {
-      return this.$store.state.inits.filters.price.options.min;
+      return this.$store.state.inits.inits.filters.price.options.min;
     },
   },
   watch: {

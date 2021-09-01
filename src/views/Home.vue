@@ -1,6 +1,6 @@
 <template>
-  <h2>Filters</h2>
-  <!-- <ConditionalLoader :condition="filters">
+  <!-- <h2>Filters</h2>
+  <ConditionalLoader :condition="filters">
     <ul class="filter-container">
       <li class="has-selling-stock-filter">
         {{ `${filters.has_selling_stock.title}` }}
@@ -15,7 +15,7 @@
   </ConditionalLoader> -->
 
   <h2>Products</h2>
-  <ConditionalLoader :condition="products.length">
+  <ConditionalLoader :condition="products">
     <ul class="product-container">
       <li v-for="product in products" :key="product.id">
         <img :src="product.images.main" />
@@ -34,10 +34,10 @@ export default {
   components: { ConditionalLoader },
   computed: {
     products() {
-      return this.$store.state.inits.products;
+      return this.$store.state.inits.inits.products;
     },
     filters() {
-      return this.$store.state.inits.filters;
+      return this.$store.state.inits.inits.filters;
     },
   },
 };
