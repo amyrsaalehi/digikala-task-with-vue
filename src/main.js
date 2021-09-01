@@ -4,15 +4,14 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import { ACCESS_TOKEN } from './constants'
+import { progressConfig } from './constants/configs';
 
 if (!localStorage.getItem('access_token')) {
-    localStorage.setItem('access_token', 'mpfKW9ghVTCSuBZ7qTkSmEyvL38ShZxv')
+    localStorage.setItem('access_token', ACCESS_TOKEN)
 }
+store.dispatch('getProducts', { page: 1, rows: 25, minPrice: 0, maxPrice: 1726074600, hasSellingStock: 1, sort: 22, q: 'hello' })
 
-const progressConfig = {
-    position: "fixed",
-    height: "5px",
-    color: "#42b983",
-};
+
 
 createApp(App).use(store).use(router).use(Vue3Progress, progressConfig).mount('#app')

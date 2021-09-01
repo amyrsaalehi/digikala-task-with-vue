@@ -5,6 +5,7 @@
   <div v-else class="loader">
     <img
       src="https://i.pinimg.com/originals/c1/bc/d8/c1bcd8a8c945b53da6b29f10a2a553c0.gif"
+      alt="Loader"
     />
   </div>
 </template>

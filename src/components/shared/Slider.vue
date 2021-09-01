@@ -33,7 +33,7 @@ export default {
     plus() {
       this.value += 100000000;
       console.log(this.$refs.progressRef);
-      console.log(this.$store.state.searchParams.price_range);
+      console.log(this.$store.state);
     },
   },
   computed: {

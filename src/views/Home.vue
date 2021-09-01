@@ -1,6 +1,6 @@
 <template>
   <h2>Filters</h2>
-  <ConditionalLoader :condition="filters">
+  <!-- <ConditionalLoader :condition="filters">
     <ul class="filter-container">
       <li class="has-selling-stock-filter">
         {{ `${filters.has_selling_stock.title}` }}
@@ -12,12 +12,13 @@
         <Slider />
       </li>
     </ul>
-  </ConditionalLoader>
+  </ConditionalLoader> -->
 
   <h2>Products</h2>
   <ConditionalLoader :condition="products.length">
     <ul class="product-container">
       <li v-for="product in products" :key="product.id">
+        <img :src="product.images.main" />
         {{ product.title }}
       </li>
     </ul>
@@ -26,11 +27,11 @@
 
 <script>
 import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
-import Slider from "../components/shared/Slider.vue";
-import Switch from "../components/shared/Switch.vue";
+// import Slider from "../components/shared/Slider.vue";
+// import Switch from "../components/shared/Switch.vue";
 export default {
   name: "Home",
-  components: { ConditionalLoader, Switch, Slider },
+  components: { ConditionalLoader },
   computed: {
     products() {
       return this.$store.state.inits.products;
@@ -45,6 +46,7 @@ export default {
 <style scoped>
 ul {
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
   gap: 15px;
   padding: 2rem 1rem;
@@ -54,6 +56,10 @@ li {
   background-color: #eee;
   padding: 1rem 2rem;
   border-radius: 10px;
+  direction: rtl;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .has-selling-stock-filter {
