@@ -7,21 +7,24 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "Switch",
-  data() {
+  setup() {
+    const store = useStore();
+    const checked = ref(false);
+
+    function toggleSwtich(e) {
+      checked.value = e.target.checked;
+      store.commit("searchParams/toggleHasSellingStock", checked.value ? 1 : 0);
+    }
+
     return {
-      checked: false,
+      checked,
+      toggleSwtich,
     };
-  },
-  methods: {
-    ...mapMutations(["toggleHasSellingStock"]),
-    toggleSwtich(e) {
-      this.checked = e.target.checked;
-      this.toggleHasSellingStock(this.checked);
-    },
   },
 };
 </script>

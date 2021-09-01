@@ -11,8 +11,6 @@ import { progressConfig } from './constants/configs';
 if (!localStorage.getItem('access_token')) {
     localStorage.setItem('access_token', ACCESS_TOKEN)
 }
-store.dispatch('inits/getProducts', { page: 1, rows: 25, minPrice: 0, maxPrice: 1726074600, hasSellingStock: 1, sort: 22, q: 'hello' })
-
-
+store.dispatch('main/getProducts', { page: 1, rows: 25, minPrice: 0, maxPrice: 1726074600, hasSellingStock: 1, sort: 22, q: 'hello' })
 
 createApp(App).use(store).use(router).use(Vue3Progress, progressConfig).mount('#app')

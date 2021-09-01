@@ -1,19 +1,17 @@
 import { createLogger, createStore } from 'vuex'
-import inits from './inits'
+import main from './main'
 import searchParams from './searchParams'
 import cart from './cart'
 import currentProduct from './currentProduct'
 
 
 export default createStore({
-    plugins: [
-        createLogger()
-    ],
+    plugins: [createLogger()],
     state: {},
     mutations: {},
     actions: {},
     modules: {
-        inits,
+        main,
         searchParams,
         cart,
         currentProduct,

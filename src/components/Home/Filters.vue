@@ -1,14 +1,14 @@
 <template>
   <h2>Filters</h2>
-  <ConditionalLoader :condition="filters">
+  <ConditionalLoader :condition="filters.price.max !== 0">
     <ul class="filter-container">
       <li class="has-selling-stock-filter">
-        {{ `${filters.has_selling_stock.title}` }}
+        {{ filters.has_selling_stock?.title }}
         <Switch />
       </li>
 
       <li class="price-filter">
-        {{ `${filters.price.title} - ${filters.price.type}` }}
+        {{ filters.price?.title }}
         <Slider />
       </li>
     </ul>
@@ -19,6 +19,7 @@
 import Slider from "../shared/Slider.vue";
 import Switch from "../shared/Switch.vue";
 import ConditionalLoader from "../shared/ConditionalLoader.vue";
+
 export default {
   name: "Filters",
   components: { ConditionalLoader, Slider, Switch },

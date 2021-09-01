@@ -18,39 +18,39 @@
 </template>
 
 <script>
+import { computed, ref, watch } from "vue";
+import { useStore } from "vuex";
+
 export default {
   name: "Slider",
-  data() {
-    return {
-      value: 10000,
-    };
-  },
-  methods: {
-    minus() {
-      this.value -= 100000000;
-      console.log(this.$refs.progressRef);
-    },
-    plus() {
-      this.value += 100000000;
-      console.log(this.$refs.progressRef);
-      console.log(this.$store.state);
-    },
-  },
-  computed: {
-    maxValue() {
-      return this.$store.state.inits.inits.filters.price.options.max;
-    },
-    minValue() {
-      return this.$store.state.inits.inits.filters.price.options.min;
-    },
-  },
-  watch: {
-    value: function () {
-      this.$store.commit("changePriceRange", {
+  setup() {
+    const store = useStore();
+    const value = ref(10000);
+
+    const maxValue = computed(() => store.state.main.filters.price.max);
+    const minValue = computed(() => store.state.main.filters.price.min);
+
+    function minus() {
+      value.value -= 1000000;
+    }
+    function plus() {
+      value.value += 1000000;
+    }
+
+    watch(value, (val) => {
+      store.commit("searchParams/changePriceRange", {
         from: 0,
-        to: parseInt(this.value),
+        to: parseInt(val),
       });
-    },
+    });
+
+    return {
+      value,
+      minus,
+      plus,
+      maxValue,
+      minValue,
+    };
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <h2>Products</h2>
-  <ConditionalLoader :condition="products">
+  <ConditionalLoader :condition="products?.length > 0">
     <ul class="product-container">
       <li v-for="product in products" :key="product.id">
         <img :src="product.images.main" />
