@@ -10,6 +10,7 @@
 import { mapMutations } from "vuex";
 
 export default {
+  name: "Switch",
   data() {
     return {
       checked: false,

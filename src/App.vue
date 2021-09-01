@@ -1,4 +1,5 @@
 <template>
+  <vue3-progress />
   <Nav />
   <Main>
     <router-view />
@@ -10,9 +11,20 @@ import Nav from "./components/semantics/Nav.vue";
 import Main from "./components/semantics/Main.vue";
 
 export default {
+  name: "App",
   components: {
     Nav,
     Main,
+  },
+  created() {
+    this.$progress.start();
+    this.$router.beforeEach((to, from, next) => {
+      this.$progress.start();
+      next();
+    });
+    this.$router.afterEach(() => {
+      this.$progress.finish();
+    });
   },
 };
 </script>

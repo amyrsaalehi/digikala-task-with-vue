@@ -19,6 +19,7 @@
 
 <script>
 export default {
+  name: "Slider",
   data() {
     return {
       value: 10000,
