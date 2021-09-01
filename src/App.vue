@@ -34,6 +34,8 @@ a {
 }
 
 button {
+  border: none;
+  outline: none;
 }
 
 input {

@@ -91,6 +91,9 @@ export default createStore({
         toggleHasSellingStock(state, payload) {
             state.searchParams.has_selling_stock = payload;
             console.log(state.searchParams)
+        },
+        changePriceRange(state, { from, to }) {
+            state.searchParams.price_range = [from, to];
         }
     },
     actions: {},

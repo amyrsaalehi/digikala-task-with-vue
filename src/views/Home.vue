@@ -9,6 +9,7 @@
 
       <li class="price-filter">
         {{ `${filters.price.title} - ${filters.price.type}` }}
+        <Slider />
       </li>
     </ul>
   </ConditionalLoader>
@@ -25,10 +26,11 @@
 
 <script>
 import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
+import Slider from "../components/shared/Slider.vue";
 import Switch from "../components/shared/Switch.vue";
 export default {
   name: "Home",
-  components: { ConditionalLoader, Switch },
+  components: { ConditionalLoader, Switch, Slider },
   computed: {
     products() {
       return this.$store.state.inits.products;
@@ -60,5 +62,12 @@ li {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
+}
+.price-filter {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 </style>
