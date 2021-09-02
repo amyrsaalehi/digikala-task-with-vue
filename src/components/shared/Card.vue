@@ -8,14 +8,37 @@
     </p>
     <div class="actions-container">
       <router-link :to="`/product/${product.id}`"> Read More </router-link>
-      <button>Add to Cart</button>
+      <button class="add-to-cart" @click="addToCart">Add to Cart</button>
     </div>
   </li>
 </template>
 
 <script>
+import { useStore } from "vuex";
+import { updateCart, isProductInCart } from "../../utils/cart";
+
 export default {
   props: ["product"],
+  setup(props) {
+    const store = useStore();
+
+    function addToCart() {
+      if (!isProductInCart(store, props.product.id)) {
+        updateCart(store, "cart/addProduct", {
+          id: props.product.id,
+          title: props.product.id,
+          images: props.product.images,
+          price: props.product.price,
+          count: 1,
+        });
+      } else {
+        updateCart(store, "cart/addCount", props.product.id);
+      }
+    }
+    return {
+      addToCart,
+    };
+  },
 };
 </script>
 
@@ -72,7 +95,7 @@ li:hover img {
   align-items: center;
 }
 
-.actions-container > button {
+.add-to-cart {
   display: block;
   color: #eee;
   background-color: #2c2c2c;
