@@ -1,23 +1,45 @@
 import { BASE_URL } from '../constants';
 import { getFetchConfigs } from '../constants/configs';
+import axios from 'axios';
 
 export default {
     namespaced: true,
-    state: () => ({}),
+    state: () => ({
+        product: {
+            id: 0,
+            title: '',
+            rating: {
+                rate: 0,
+                count: 0
+            },
+            status: '',
+            images: {
+                main: ''
+            },
+            price: {
+                selling_price: 0,
+                rrp_price: 0
+            },
+        }
+    }),
     mutations: {
-        currentProduct(state, paylaod) {
-            state = paylaod;
+        setProduct(state, paylaod) {
+            state.product = paylaod
         }
     },
     actions: {
-        async getProductDetails({ commit }, { productId }) {
-
-            const data = await fetch(`${BASE_URL}/front-end/product/${productId}/`, getFetchConfigs)
-                .then(data => data.json())
-
-            if (data.status === 200) {
-                commit('currentProduct', data.data.product)
-            }
+        getProductDetails({ commit, }, payload) {
+            return axios.get(`${BASE_URL}/product/${payload}/`, getFetchConfigs).then(res => {
+                if (res.data.status === 200) {
+                    commit('setProduct', res.data.data.product)
+                }
+            })
         }
+    },
+    getters: {
+        product(state) {
+            console.log('getter for curretn product')
+            return state.product;
+        },
     }
 }

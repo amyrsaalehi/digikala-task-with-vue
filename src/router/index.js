@@ -7,7 +7,7 @@ const routes = [{
         component: Home
     },
     {
-        path: '/:title',
+        path: '/product/:id',
         name: 'PDP',
         component: () =>
             import ('../views/Details.vue')

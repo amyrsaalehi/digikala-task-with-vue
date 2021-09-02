@@ -23,6 +23,7 @@ export default {
       next();
     });
     this.$router.afterEach(() => {
+      window.scrollTo(0, 0);
       this.$progress.finish();
     });
   },

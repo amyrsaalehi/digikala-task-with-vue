@@ -2,20 +2,37 @@
   <nav>
     <router-link to="/">Home</router-link>
     <!-- This page is just for test -->
-    <router-link to="/product-1">Detail</router-link>
+    <router-link v-if="productId" :to="`/product/${productId}`"
+      >Last Product</router-link
+    >
     <!-- This page is just for test -->
     <router-link to="/not/found-page">Not Found</router-link>
   </nav>
 </template>
 
 <script>
+import { watch } from "vue";
+import { useStore } from "vuex";
 export default {
   name: "Nav",
+  setup() {
+    const store = useStore();
+    const id = store.getters["currentProduct/product"];
+    let productId = id.id;
+    watch(id, (val) => {
+      productId = val;
+    });
+    console.log(productId);
+    return {
+      productId,
+    };
+  },
 };
 </script>
 
 <style scoped>
 nav {
+  z-index: 99;
   padding: 2rem;
   background-color: #eee;
   position: sticky;

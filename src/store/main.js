@@ -1,5 +1,6 @@
 import { BASE_URL } from '../constants'
 import { getFetchConfigs } from '../constants/configs'
+import axios from 'axios';
 
 export default {
     namespaced: true,
@@ -20,7 +21,7 @@ export default {
             current_page: 1,
             total_items: 0,
             total_pages: 0
-        }
+        },
     }),
     mutations: {
         updateInits(state, { filters, products, sort, pager }) {
@@ -35,12 +36,13 @@ export default {
         },
     },
     actions: {
-        async getProducts({ commit }, { page = 1, rows = 25, minPrice = 0, maxPrice = 1726074600, hasSellingStock = 1, sort = 4, q = 'سیب' }) {
-            const data = await fetch(`${BASE_URL}/search/?page=${page}&rows=${rows}&price[min]=${minPrice}&price[max]=${maxPrice}&has_selling_stock=${hasSellingStock}&sort=${sort}&q=${q}`, getFetchConfigs)
-                .then(data => data.json())
-            if (data.status === 200) {
-                commit('updateInits', data.data);
-            }
+        getProducts({ commit }, { page = 1, rows = 25, minPrice = 0, maxPrice = 1726074600, hasSellingStock = 1, sort = 4, q = 'سیب' }) {
+            return axios.get(`${BASE_URL}/search/?page=${page}&rows=${rows}&price[min]=${minPrice}&price[max]=${maxPrice}&has_selling_stock=${hasSellingStock}&sort=${sort}&q=${q}`, getFetchConfigs)
+                .then(res => {
+                    if (res.data.status === 200) {
+                        commit('updateInits', res.data.data);
+                    }
+                })
         },
     },
     getters: {
@@ -49,6 +51,9 @@ export default {
         },
         filters(state) {
             return state.filters
+        },
+        loading(state) {
+            return state.loading
         }
     }
 }
