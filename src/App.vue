@@ -19,11 +19,9 @@ export default {
   },
   created() {
     this.$progress.start();
-
     restoreCartDatas(this.$store, window.localStorage);
-
     this.$router.beforeEach(async (to, from, next) => {
-      if (to.path === "/") {
+      if (to.name === "PLP") {
         const query = to.query;
 
         (async () => {
@@ -32,8 +30,8 @@ export default {
           await this.$store.dispatch("main/getProducts", {
             page: query.page,
             rows: query.rows,
-            minPrice: query["price[min]"],
-            maxPrice: query["price[max]"],
+            "price[min]": query["price[min]"],
+            "price[max]": query["price[max]"],
             hasSellingStock: query.has_selling_stock || undefined,
             sort: query.sort,
             q: query.q || undefined,
@@ -71,6 +69,7 @@ a {
 button {
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input {

@@ -1,40 +1,45 @@
 <template>
-  <h2>Filters</h2>
   <ul class="filter-container">
-    <li class="has-selling-stock-filter">
-      سرچ
-      <input required type="text" v-model="q" placeholder="search" />
+    <li class="search-filter">
+      <input
+        required
+        type="text"
+        v-model="q"
+        placeholder="جستجو در دیجیکالا..."
+      />
     </li>
-    <li class="has-selling-stock-filter">
-      کالا های موجود
-      <Switch />
-    </li>
-    <li class="has-selling-stock-filter">
-      صفحه
-      <input type="number" v-model="current_page" placeholder="current page" />
-    </li>
-    <li class="has-selling-stock-filter">
-      مرتب
-      <select v-model="sort">
-        <option value="22">مرتبط ترین</option>
-        <option value="4">بیشترین بازدید</option>
-        <option value="27">پیشنهاد کاربران</option>
-      </select>
-    </li>
-    <li class="has-selling-stock-filter">
-      بازه قیمت
-      <input type="number" v-model="maxPrice" placeholder="maxPrice" />
-      <input type="number" v-model="minPrice" placeholder="minPrice" />
+    <li class="sort-filter">
+      <div class="sort-btn">
+        <p>مرتب سازی</p>
+        <button @click="sort = 22" :class="{ 'sort-btn-active': sort === 22 }">
+          مرتبط ترین
+        </button>
+        <button @click="sort = 4" :class="{ 'sort-btn-active': sort === 4 }">
+          بیشترین بازدید
+        </button>
+        <button @click="sort = 27" :class="{ 'sort-btn-active': sort === 27 }">
+          پیشنهاد کاربران
+        </button>
+      </div>
+
+      <div class="price-range-filter">
+        <input type="number" v-model="minPrice" placeholder="قیمت از" />
+        <input type="number" v-model="maxPrice" placeholder="قیمت تا" />
+      </div>
     </li>
     <li class="actions">
       <!-- <button class="clear" @click="clear">clear</button> -->
-      <button class="search" @click="search">search</button>
+      <button class="search" @click="search">جستجو</button>
+      <div class="has-selling-stock-filter">
+        <Switch />
+        <p>کالا های موجود</p>
+      </div>
     </li>
   </ul>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Switch from "../shared/Switch.vue";
@@ -45,25 +50,34 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
+    const maxPage = computed(() => store.getters["main/page"]);
 
-    const has_selling_stock = store.getters["searchParams/getHasSellingStock"];
-
-    const current_page = ref(store.getters["main/pager"].current_page);
-
-    const sort = ref(store.getters["searchParams/getSort"]);
-    const minPrice = ref(store.getters["searchParams/getMinPrice"]);
-    const maxPrice = ref(store.getters["searchParams/getMaxPrice"]);
-
-    const rows = ref(store.getters["searchParams/getRows"]);
-    const q = ref(store.getters["searchParams/getQuery"]);
+    const has_selling_stock = computed(
+      () => store.getters["searchParams/getHasSellingStock"]
+    );
+    const current_page = ref(
+      computed(() => store.getters["main/pager"].current_page).value
+    );
+    const sort = ref(
+      computed(() => store.getters["searchParams/getSort"]).value
+    );
+    const minPrice = ref(
+      computed(() => store.getters["searchParams/getMinPrice"]).value
+    );
+    const maxPrice = ref(
+      computed(() => store.getters["searchParams/getMaxPrice"]).value
+    );
+    const rows = ref(
+      computed(() => store.getters["searchParams/getRows"]).value
+    );
+    const q = ref(computed(() => store.getters["searchParams/getQuery"]).value);
 
     watch(current_page, (val) => {
-      const maxPage = store.getters["main/pager"].total_pages;
       if (val < 1) {
         current_page.value = 1;
       }
       if (val > store.getters["main/pager"].total_pages) {
-        current_page.value = maxPage;
+        current_page.value = maxPage.value.total_pages;
       }
     });
 
@@ -73,7 +87,7 @@ export default {
         rows: rows.value,
         "price[min]": minPrice.value || 0,
         "price[max]": maxPrice.value || 0,
-        has_selling_stock: has_selling_stock || undefined,
+        has_selling_stock: has_selling_stock.value || undefined,
         sort: sort.value,
         q: q.value === "" ? undefined : q.value,
       });
@@ -105,40 +119,112 @@ ul {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-between;
-  gap: 15px;
-  padding: 2rem 1rem;
+  gap: 5px;
 }
 li {
   display: flex;
-  background-color: #eee;
-  padding: 1rem 2rem;
-  border-radius: 10px;
-  direction: rtl;
-  flex-flow: column nowrap;
+  background-color: #fff;
   justify-content: center;
   align-items: center;
 }
 
-.has-selling-stock-filter {
+input {
+  width: 100%;
+  direction: rtl;
+  border: 1px solid #eee;
+}
+
+.search-filter {
   display: flex;
-  flex-flow: row-reverse nowrap;
+  flex-flow: row nowrap;
+  flex: 1 0 100%;
+}
+.search-filter > input {
+  width: 100%;
+  direction: rtl;
+  border: 1px solid #eee;
+}
+
+.sort-filter {
+  display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  font-size: 1.2rem;
+  margin-top: 1rem;
+}
+
+.sort-filter > p {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-btn {
+  display: flex;
+  flex-flow: row-reverse wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.sort-btn > p {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-btn > button {
+  transition: 0.3 all ease-in-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 100px;
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #333;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+}
+
+button.sort-btn-active {
+  background-color: #333;
+  color: #fff;
+  font-weight: bold;
+}
+
+.price-range-filter {
+  flex: 1 1 auto;
+  display: flex;
+  flex-flow: row-reverse wrap;
+  justify-content: center;
   align-items: center;
   gap: 1rem;
 }
-.price-filter {
+
+.price-range-filter > input {
   display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
+  flex: 1 1 30%;
 }
 
 .actions {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: space-between;
   background-color: transparent;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.has-selling-stock-filter {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 0 1 200px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .search {
@@ -158,5 +244,27 @@ li {
   border: 2px solid rgb(177, 100, 100);
   background-color: transparent;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .actions {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    justify-content: space-between;
+    background-color: transparent;
+    margin-top: 1rem;
+    gap: 20px;
+  }
+  .has-selling-stock-filter {
+    flex: 1 1 100%;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .price-range-filter {
+    flex-flow: column wrap;
+  }
 }
 </style>

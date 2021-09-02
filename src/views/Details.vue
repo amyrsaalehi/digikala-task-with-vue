@@ -1,20 +1,25 @@
 <template>
-  <ConditionalLoader :condition="productGetter">
-    <div class="container" v-if="productGetter.status === 'marketable'">
+  <ConditionalLoader :condition="product">
+    <div class="container">
       <div class="img-container">
-        <img :src="productGetter.images.main" :alt="productGetter.title" />
+        <img :src="product.images.main" :alt="product.title" />
       </div>
       <div class="wrapper">
-        <h1>{{ productGetter.title }}</h1>
+        <h1>{{ product.title }}</h1>
         <div class="price-container">
           <span class="selling">
-            {{ productGetter.price.selling_price }}$
+            {{ product.price.selling_price + " " }}ریال
           </span>
-          <span class="rrp"> {{ productGetter.price.rrp_price }}$ </span>
+          <span
+            v-if="product.price.selling_price !== product.price.rrp_price"
+            class="rrp"
+          >
+            {{ product.price.rrp_price + " " }}ریال
+          </span>
         </div>
         <div class="rating">
           <p class="rate">
-            <span>{{ `امتیاز ${productGetter.rating.rate}` }}</span>
+            <span>{{ `امتیاز ${product.rating.rate}` }}</span>
             <img
               src="https://cdn.iconscout.com/icon/free/png-512/star-bookmark-favorite-shape-rank-like-32386.png"
               width="25"
@@ -23,30 +28,28 @@
             />
           </p>
           <p class="count">
-            {{ `${productGetter.rating.count} نفر به این محصول رای دادند` }}
+            {{ `${product.rating.count} نفر به این محصول رای دادند` }}
           </p>
         </div>
-        <button class="add-to-cart" @click="addToCart">
-          افزودن به سبد خرید
+        <button
+          :disabled="!product.status === 'marketable'"
+          class="add-to-cart"
+          @click="addToCart"
+        >
+          {{
+            product.status === "marketable"
+              ? "افزودن به سبد خرید"
+              : "موجود شد به من اطلاع بده"
+          }}
         </button>
       </div>
-    </div>
-    <div v-else class="not-marketable">
-      <img
-        src="http://grootech.id/frontAsset/img/not-found.gif"
-        alt="not-marketable"
-      />
-      <h2>
-        Please go back to <router-link to="/">Home</router-link> and pick
-        another one, It's not markable.
-      </h2>
     </div>
   </ConditionalLoader>
 </template>
 
 
 <script>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
@@ -66,10 +69,7 @@ export default {
   setup() {
     const store = useStore();
     const route = useRoute();
-    const product = ref(store.state.currentProduct.product);
-    const productGetter = computed(
-      () => store.getters["currentProduct/product"]
-    );
+    const product = computed(() => store.getters["currentProduct/product"]);
 
     function addToCart() {
       if (!isProductInCart(store, product.value.id)) {
@@ -97,7 +97,7 @@ export default {
 
     return {
       id: route.params.id,
-      productGetter,
+      product,
       addToCart,
     };
   },
@@ -105,6 +105,10 @@ export default {
 </script>
 
 <style scoped>
+.wrapper > h1 {
+  font-size: 2.5rem;
+  text-align: center;
+}
 .container {
   display: flex;
   flex-flow: row wrap;
@@ -133,8 +137,9 @@ export default {
   color: #333;
 }
 .img-container {
-  flex: 0 1 50%;
+  flex: 0 1 45%;
   position: relative;
+  margin-bottom: 3rem;
 }
 .img-container > img {
   width: 100%;
@@ -156,22 +161,21 @@ export default {
   flex-flow: column nowrap;
   justify-content: space-between;
   direction: rtl;
+  flex: 1 1 50%;
   gap: 50px;
-}
-.wrapper > h1 {
-  font-size: 3rem;
 }
 .price-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
   justify-content: space-around;
+  gap: 15px;
 }
 .price-container > span {
   display: block;
 }
 
 .selling {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
 }
 
@@ -215,5 +219,16 @@ export default {
   padding: 1rem 0;
   font-size: 1.2rem;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .img-container {
+    flex: 1 1 100%;
+  }
+
+  .wrapper > h1 {
+    font-size: 2rem;
+    text-align: justify;
+  }
 }
 </style>

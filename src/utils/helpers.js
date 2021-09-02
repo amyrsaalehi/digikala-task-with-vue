@@ -12,3 +12,7 @@ export function split3Digits(number) {
         y = y.replace(rgx, '$1' + ',' + '$2');
     return y + z;
 }
+
+export function calculateDiscountPercentage(selling, rrp) {
+    return Math.floor((1 - selling / rrp) * 100)
+}

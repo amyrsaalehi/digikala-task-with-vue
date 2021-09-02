@@ -45,11 +45,11 @@ export default {
     },
     actions: {
         getProducts({ commit }, query) {
-            // payload = { page, rows, minPrice, maxPrice, hasSellingStock, sort, q }
-            // return axios.get(`${BASE_URL}/search/?page=${page || searchParams.current_page }&rows=${rows || searchParams.rows}&price[min]=${minPrice || searchParams.price_range[0]}&price[max]=${maxPrice || searchParams.price_range[1]}&has_selling_stock=${hasSellingStock || searchParams.has_selling_stock}&sort=${sort || searchParams.sort}&q=${q || searchParams.q}`, getFetchConfigs)
             return axios.get(`${BASE_URL}/search/`, {
                     ...getFetchConfigs,
-                    params: query,
+                    params: {
+                        ...query,
+                    },
                 })
                 .then(res => {
                     if (res.data.status === 200) {

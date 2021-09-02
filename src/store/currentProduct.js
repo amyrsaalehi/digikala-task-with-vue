@@ -1,6 +1,7 @@
 import { BASE_URL } from '../constants';
 import { getFetchConfigs } from '../constants/configs';
 import axios from 'axios';
+import { calculateDiscountPercentage } from '../utils/helpers'
 
 export default {
     namespaced: true,
@@ -12,7 +13,7 @@ export default {
                 rate: 0,
                 count: 0
             },
-            status: '',
+            status: 'marketable',
             images: {
                 main: ''
             },
@@ -39,6 +40,9 @@ export default {
     getters: {
         product(state) {
             return state.product;
+        },
+        totalDiscount(state) {
+            return calculateDiscountPercentage(state.product.price.selling_price, state.product.price.rrp_price)
         },
     }
 }

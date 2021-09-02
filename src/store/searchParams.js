@@ -2,7 +2,7 @@ export default {
     namespaced: true,
     state: () => ({
         has_selling_stock: 0,
-        price_range: [0, 0],
+        price_range: ['', ''],
         // 4: the most views | 22: the most relevant | 27: customers recommendation
         sort: 22,
         current_page: 1,

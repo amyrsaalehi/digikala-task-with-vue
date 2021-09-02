@@ -1,5 +1,4 @@
 <template>
-  <h2>Products</h2>
   <ConditionalLoader :condition="products?.length > 0">
     <ul class="product-container">
       <Card :product="product" v-for="product in products" :key="product.id" />
@@ -8,8 +7,8 @@
 </template>
 
 <script>
-import Card from "../shared/Card.vue";
-import ConditionalLoader from "../shared/ConditionalLoader.vue";
+import Card from "./Card.vue";
+import ConditionalLoader from "../../shared/ConditionalLoader.vue";
 export default {
   name: "Products",
   components: { ConditionalLoader, Card },
@@ -21,7 +20,8 @@ export default {
 ul {
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   gap: 30px;
   padding: 2rem 1rem;
 }

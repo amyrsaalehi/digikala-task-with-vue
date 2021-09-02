@@ -7,11 +7,11 @@
 import { computed } from "vue";
 import { useStore } from "vuex";
 import Filters from "../components/Home/Filters.vue";
-import Products from "../components/Home/Products.vue";
+import Products from "../components/Home/Products/index.vue";
 
 export default {
   name: "Home",
-  components: { Products, Filters },
+  components: { Filters, Products },
 
   setup() {
     const store = useStore();
