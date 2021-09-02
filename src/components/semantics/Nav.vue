@@ -5,6 +5,9 @@
     <router-link v-if="productId" :to="`/product/${productId}`"
       >Last Product</router-link
     >
+
+    <router-link to="/cart">Cart</router-link>
+
     <!-- This page is just for test -->
     <router-link to="/not/found-page">Not Found</router-link>
   </nav>

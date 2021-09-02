@@ -24,15 +24,25 @@ export default {
 
     function addToCart() {
       if (!isProductInCart(store, props.product.id)) {
-        updateCart(store, "cart/addProduct", {
-          id: props.product.id,
-          title: props.product.id,
-          images: props.product.images,
-          price: props.product.price,
-          count: 1,
-        });
+        updateCart(
+          store,
+          "cart/addProduct",
+          {
+            id: props.product.id,
+            title: props.product.id,
+            images: props.product.images,
+            price: props.product.price,
+            count: 1,
+          },
+          window.localStorage
+        );
       } else {
-        updateCart(store, "cart/addCount", props.product.id);
+        updateCart(
+          store,
+          "cart/addCount",
+          props.product.id,
+          window.localStorage
+        );
       }
     }
     return {

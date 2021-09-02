@@ -9,6 +9,7 @@
 <script>
 import Nav from "./components/semantics/Nav.vue";
 import Main from "./components/semantics/Main.vue";
+import { restoreCartDatas } from "./utils/cart";
 
 export default {
   name: "App",
@@ -18,24 +19,31 @@ export default {
   },
   created() {
     this.$progress.start();
-    this.$router.beforeEach((to, from, next) => {
-      const query = to.query;
-      (async () => {
-        console.log("query", query);
-        await this.$store.commit("main/clearInits");
-        await this.$store.dispatch("main/getProducts", {
-          page: query.page,
-          rows: query.rows,
-          minPrice: query["price[min]"],
-          maxPrice: query["price[max]"],
-          hasSellingStock: query.has_selling_stock || undefined,
-          sort: query.sort,
-          q: query.q || undefined,
-        });
-      })();
+
+    restoreCartDatas(this.$store, window.localStorage);
+
+    this.$router.beforeEach(async (to, from, next) => {
+      if (to.path === "/") {
+        const query = to.query;
+
+        (async () => {
+          console.log("query", query);
+          await this.$store.commit("main/clearInits");
+          await this.$store.dispatch("main/getProducts", {
+            page: query.page,
+            rows: query.rows,
+            minPrice: query["price[min]"],
+            maxPrice: query["price[max]"],
+            hasSellingStock: query.has_selling_stock || undefined,
+            sort: query.sort,
+            q: query.q || undefined,
+          });
+        })();
+      }
       this.$progress.start();
       next();
     });
+
     this.$router.afterEach(() => {
       window.scrollTo(0, 0);
       this.$progress.finish();

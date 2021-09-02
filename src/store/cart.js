@@ -1,21 +1,3 @@
-// import createPersistedState from 'vuex-persistedstate'
-// import SecureLS from 'secure-ls';
-// const ls = new SecureLS({ isCompression: false });
-
-// const sampleProduct = {
-//     id: 0,
-//     title: '',
-//     images: {
-//         main: ''
-//     },
-//     price: {
-//         selling_price: 0,
-//         rrp_price: 0
-//     },
-//     count: 0
-// }
-
-
 export default {
     namespaced: true,
     state: () => ({
@@ -24,6 +6,11 @@ export default {
         total_rrp_price: 0
     }),
     mutations: {
+        restoreCart(state, payload) {
+            state.products = payload.products;
+            state.total_rrp_price = payload.total_rrp_price;
+            state.total_selling_price = payload.total_selling_price
+        },
         addCount(state, id) {
             const index = state.products.findIndex(item => item.id === id);
             state.products[index].count++;
@@ -63,14 +50,5 @@ export default {
         getTotalRrpPrice(state) {
             return state.total_rrp_price
         },
-    }
-    // plugins: [
-    //     createPersistedState({
-    //         storage: {
-    //             getItem: key => ls.get(key),
-    //             setItem: (key, value) => ls.set(key, value),
-    //             removeItem: key => ls.remove(key)
-    //         }
-    //     })
-    // ],
+    },
 }
