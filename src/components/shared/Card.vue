@@ -29,7 +29,7 @@ export default {
           "cart/addProduct",
           {
             id: props.product.id,
-            title: props.product.id,
+            title: props.product.title,
             images: props.product.images,
             price: props.product.price,
             count: 1,

@@ -1,20 +1,31 @@
 <template>
-  <div v-for="product in products" :key="product.id">
-    {{
-      `${product.title} - ${product.count} - ${totalRrpPrice} - ${totalSellingPrice}`
-    }}
-  </div>
+  <Header>
+    <p>totalRrpPrice = {{ totalRrpPrice }}</p>
+    <p>totalSellingPrice = {{ totalSellingPrice }}</p>
+  </Header>
+  <ul class="container">
+    <Card v-for="product in products" :key="product.id" :product="product" />
+  </ul>
 </template>
 
 <script>
-// import {useStore} from 'vuex'
+import { computed, reactive } from "@vue/reactivity";
+import { useStore } from "vuex";
+import Card from "../components/Cart/Card.vue";
+import Header from "../components/semantics/Header.vue";
+import { split3Digits } from "../utils/helpers";
 
 export default {
+  components: { Card, Header },
   setup() {
-    // const store = useStore()
-    const products = [];
-    const totalSellingPrice = 0;
-    const totalRrpPrice = 0;
+    const store = useStore();
+    const products = reactive(store.getters["cart/getProducts"]);
+    const totalSellingPrice = computed(() =>
+      split3Digits(store.getters["cart/getTotalSellingPrice"])
+    );
+    const totalRrpPrice = computed(() =>
+      split3Digits(store.getters["cart/getTotalRrpPrice"])
+    );
 
     return {
       products,
@@ -25,5 +36,13 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+header {
+}
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 30px;
+  justify-content: center;
+}
 </style>

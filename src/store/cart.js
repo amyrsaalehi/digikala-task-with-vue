@@ -34,8 +34,8 @@ export default {
             state.total_selling_price = 0;
             state.total_rrp_price = 0;
             state.products.forEach(product => {
-                state.total_selling_price += product.price.selling_price
-                state.total_rrp_price += product.price.rrp_price
+                state.total_selling_price += product.price.selling_price * product.count
+                state.total_rrp_price += product.price.rrp_price * product.count
             })
         }
     },

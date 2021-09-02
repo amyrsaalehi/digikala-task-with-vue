@@ -44,26 +44,52 @@
 
 
 <script>
-import { computed } from "@vue/reactivity";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
-import { onMounted } from "@vue/runtime-core";
+import { updateCart, isProductInCart } from "../utils/cart";
 
 export default {
   name: "Details",
   components: { ConditionalLoader },
+  created() {
+    (async () => {
+      await this.$store.dispatch(
+        "currentProduct/getProductDetails",
+        this.$route.params.id
+      );
+    })();
+  },
   setup() {
     const store = useStore();
     const route = useRoute();
-    const product = computed(() => store.getters["currentProduct/product"]);
+    let product = ref(store.getters["currentProduct/product"]);
 
-    onMounted(async () => {
-      await store.dispatch("currentProduct/getProductDetails", route.params.id);
-    });
+    console.log(product.value);
 
     function addToCart() {
-      //TODO: add to cart commit
+      if (!isProductInCart(store, product.value.id)) {
+        updateCart(
+          store,
+          "cart/addProduct",
+          {
+            id: product.value.id,
+            title: product.value.title,
+            images: product.value.images,
+            price: product.value.price,
+            count: 1,
+          },
+          window.localStorage
+        );
+      } else {
+        updateCart(
+          store,
+          "cart/addCount",
+          product.value.id,
+          window.localStorage
+        );
+      }
     }
 
     return {
