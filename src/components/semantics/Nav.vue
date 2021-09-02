@@ -22,7 +22,7 @@ export default {
     watch(id, (val) => {
       productId = val;
     });
-    console.log(productId);
+    // console.log(productId);
     return {
       productId,
     };

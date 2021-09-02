@@ -38,7 +38,6 @@ export default {
     },
     getters: {
         product(state) {
-            console.log('getter for curretn product')
             return state.product;
         },
     }

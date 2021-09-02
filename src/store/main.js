@@ -6,11 +6,7 @@ export default {
     namespaced: true,
     state: () => ({
         filters: {
-            has_selling_stock: {
-                title: "فقط کالاهای موجود",
-            },
             price: {
-                title: "محدوده قیمت",
                 min: 0,
                 max: 0
             }
@@ -24,11 +20,23 @@ export default {
         },
     }),
     mutations: {
+        clearInits(state) {
+            state.filters.price = {
+                min: 0,
+                max: 0
+            };
+            state.products = [];
+            state.sort = 22;
+            state.pager = {
+                current_page: 1,
+                total_items: 0,
+                total_pages: 0
+            };
+        },
         updateInits(state, { filters, products, sort, pager }) {
             state.filters.price = {
-                ...state.filters.price,
-                min: filters.price.options.min,
-                max: filters.price.options.max
+                min: filters.price.options.min || 0,
+                max: filters.price.options.max || 0
             };
             state.products = products;
             state.sort = sort.default;
@@ -36,8 +44,13 @@ export default {
         },
     },
     actions: {
-        getProducts({ commit }, { page = 1, rows = 25, minPrice = 0, maxPrice = 1726074600, hasSellingStock = 1, sort = 4, q = 'سیب' }) {
-            return axios.get(`${BASE_URL}/search/?page=${page}&rows=${rows}&price[min]=${minPrice}&price[max]=${maxPrice}&has_selling_stock=${hasSellingStock}&sort=${sort}&q=${q}`, getFetchConfigs)
+        getProducts({ commit }, query) {
+            // payload = { page, rows, minPrice, maxPrice, hasSellingStock, sort, q }
+            // return axios.get(`${BASE_URL}/search/?page=${page || searchParams.current_page }&rows=${rows || searchParams.rows}&price[min]=${minPrice || searchParams.price_range[0]}&price[max]=${maxPrice || searchParams.price_range[1]}&has_selling_stock=${hasSellingStock || searchParams.has_selling_stock}&sort=${sort || searchParams.sort}&q=${q || searchParams.q}`, getFetchConfigs)
+            return axios.get(`${BASE_URL}/search/`, {
+                    ...getFetchConfigs,
+                    params: query,
+                })
                 .then(res => {
                     if (res.data.status === 200) {
                         commit('updateInits', res.data.data);
@@ -49,11 +62,15 @@ export default {
         products(state) {
             return state.products
         },
-        filters(state) {
-            return state.filters
+        prices(state) {
+            console.log('getting prices', state.filters.price)
+            return state.filters.price
         },
-        loading(state) {
-            return state.loading
-        }
+        sort(state) {
+            return state.sort
+        },
+        pager(state) {
+            return state.pager
+        },
     }
 }

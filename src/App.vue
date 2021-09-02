@@ -19,6 +19,20 @@ export default {
   created() {
     this.$progress.start();
     this.$router.beforeEach((to, from, next) => {
+      const query = to.query;
+      (async () => {
+        console.log("query", query);
+        await this.$store.commit("main/clearInits");
+        await this.$store.dispatch("main/getProducts", {
+          page: query.page,
+          rows: query.rows,
+          minPrice: query["price[min]"],
+          maxPrice: query["price[max]"],
+          hasSellingStock: query.has_selling_stock || undefined,
+          sort: query.sort,
+          q: query.q || undefined,
+        });
+      })();
       this.$progress.start();
       next();
     });
@@ -52,6 +66,12 @@ button {
 }
 
 input {
+  border: none;
+  background-color: #fff;
+  color: #333;
+  padding: 1rem 2rem;
+  font-size: 1.3rem;
+  border-radius: 10px;
 }
 
 /* App styles */
@@ -61,5 +81,6 @@ input {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
+  scroll-behavior: smooth;
 }
 </style>

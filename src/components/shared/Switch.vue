@@ -1,5 +1,4 @@
 <template>
-  <!-- Rounded switch -->
   <label class="switch">
     <input type="checkbox" :checked="checked" @change="toggleSwtich" />
     <span class="slider round"></span>
@@ -30,7 +29,6 @@ export default {
 </script>
 
 <style scoped>
-/* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
@@ -38,14 +36,12 @@ export default {
   height: 34px;
 }
 
-/* Hide default HTML checkbox */
 .switch input {
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-/* The slider */
 .slider {
   position: absolute;
   cursor: pointer;
@@ -84,7 +80,6 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
