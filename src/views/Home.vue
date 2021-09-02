@@ -6,8 +6,8 @@
 <script>
 import { computed } from "vue";
 import { useStore } from "vuex";
-import Filters from "../components/Home/Filters.vue";
-import Products from "../components/Home/Products/index.vue";
+import Filters from "../components/Home/Filters/Filters.vue";
+import Products from "../components/Home/Products/Products.vue";
 
 export default {
   name: "Home",

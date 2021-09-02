@@ -42,7 +42,7 @@
 import { computed, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
-import Switch from "../shared/Switch.vue";
+import Switch from "../../shared/Switch.vue";
 
 export default {
   name: "Filters",

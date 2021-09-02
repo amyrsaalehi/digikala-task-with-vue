@@ -21,11 +21,16 @@ export default {
                 selling_price: 0,
                 rrp_price: 0
             },
-        }
+        },
+        founnd: true
     }),
     mutations: {
         setProduct(state, paylaod) {
             state.product = paylaod
+            state.found = true;
+        },
+        notFound(state) {
+            state.found = false;
         }
     },
     actions: {
@@ -33,6 +38,8 @@ export default {
             return axios.get(`${BASE_URL}/product/${payload}/`, getFetchConfigs).then(res => {
                 if (res.data.status === 200) {
                     commit('setProduct', res.data.data.product)
+                } else {
+                    commit('notFound')
                 }
             })
         }
@@ -44,5 +51,8 @@ export default {
         totalDiscount(state) {
             return calculateDiscountPercentage(state.product.price.selling_price, state.product.price.rrp_price)
         },
+        found(state) {
+            return state.found
+        }
     }
 }

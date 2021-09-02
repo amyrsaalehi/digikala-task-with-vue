@@ -1,6 +1,6 @@
 <template>
   <ConditionalLoader :condition="product">
-    <div class="container">
+    <div class="container" v-if="found">
       <div class="img-container">
         <img :src="product.images.main" :alt="product.title" />
       </div>
@@ -44,6 +44,13 @@
         </button>
       </div>
     </div>
+    <div v-else class="not-found">
+      <h1>Product not found</h1>
+      <p>
+        Click this <router-link to="/">Link</router-link> tot go back to Home
+        page.
+      </p>
+    </div>
   </ConditionalLoader>
 </template>
 
@@ -69,6 +76,7 @@ export default {
   setup() {
     const store = useStore();
     const route = useRoute();
+    const found = computed(() => store.getters["currentProduct/found"]);
     const product = computed(() => store.getters["currentProduct/product"]);
 
     function addToCart() {
@@ -99,6 +107,7 @@ export default {
       id: route.params.id,
       product,
       addToCart,
+      found,
     };
   },
 };
@@ -219,6 +228,23 @@ export default {
   padding: 1rem 0;
   font-size: 1.2rem;
   border-radius: 5px;
+}
+
+.not-found {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 3rem;
+}
+
+.not-found > p {
+  color: #777;
+}
+
+.not-found a {
+  color: #333;
 }
 
 @media screen and (max-width: 768px) {
