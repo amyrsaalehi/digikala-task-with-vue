@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { computed, ref, watch } from "vue";
+import { computed, onBeforeUnmount, ref, watch } from "vue";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 import Switch from "../../shared/Switch.vue";
@@ -71,6 +71,18 @@ export default {
       computed(() => store.getters["searchParams/getRows"]).value
     );
     const q = ref(computed(() => store.getters["searchParams/getQuery"]).value);
+
+    onBeforeUnmount(() => {
+      store.commit("searchParams/changeSearchParams", {
+        has_selling_stock: 0,
+        minPrice: "",
+        maxPrice: "",
+        sort: 22,
+        current_page: 1,
+        rows: 25,
+        q: undefined,
+      });
+    });
 
     watch(current_page, (val) => {
       if (val < 1) {

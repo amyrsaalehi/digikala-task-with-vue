@@ -6,15 +6,19 @@
     <h4>
       {{ product.title }}
     </h4>
-    <div class="price-container">
+    <div class="price-container" v-if="product.status === 'marketable'">
       <p class="discount" v-if="discountPercentage !== 0">
         -{{ discountPercentage }}%
       </p>
       <p class="price">{{ price + " " }}ریال</p>
     </div>
-    <div class="actions-container">
+    <div class="actions-container" v-if="product.status === 'marketable'">
       <router-link :to="`/product/${product.id}`"> جزیات </router-link>
       <button class="add-to-cart" @click="addToCart">افزودن</button>
+    </div>
+    <div class="actions-container" v-else>
+      <router-link :to="`/product/${product.id}`"> جزیات </router-link>
+      <button class="add-to-cart" disabled="true">اتمام موجودی</button>
     </div>
   </li>
 </template>
@@ -74,6 +78,12 @@ export default {
 </script>
 
 <style scoped>
+button.add-to-cart:disabled,
+button.add-to-cart[disabled] {
+  color: #888;
+  background-color: #eee;
+  cursor: initial;
+}
 li {
   display: flex;
   flex: 1 1 400px;

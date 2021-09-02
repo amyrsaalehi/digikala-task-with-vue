@@ -28,10 +28,13 @@ export default {
         changeRows(state, rows) {
             state.rows = rows
         },
-        changeSearchParams(state, payload) {
-            state = {
-                ...payload
-            }
+        changeSearchParams(state, { has_selling_stock, minPrice, maxPrice, sort, current_page, rows, q }) {
+            state.has_selling_stock = has_selling_stock;
+            state.price_range = [minPrice, maxPrice];
+            state.sort = sort;
+            state.current_page = current_page;
+            state.q = q;
+            state.rows = rows;
         },
     },
     actions: {},

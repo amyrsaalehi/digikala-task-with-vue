@@ -6,7 +6,7 @@
       </div>
       <div class="wrapper">
         <h1>{{ product.title }}</h1>
-        <div class="price-container">
+        <div class="price-container" v-if="product.status === 'marketable'">
           <span class="selling">
             {{ product.price.selling_price + " " }}ریال
           </span>
@@ -32,16 +32,13 @@
           </p>
         </div>
         <button
-          :disabled="!product.status === 'marketable'"
+          v-if="!product.status === 'marketable'"
           class="add-to-cart"
           @click="addToCart"
         >
-          {{
-            product.status === "marketable"
-              ? "افزودن به سبد خرید"
-              : "موجود شد به من اطلاع بده"
-          }}
+          افزودن به سبد خرید
         </button>
+        <button disabled class="add-to-cart">موجود شد به من اطلاع بده</button>
       </div>
     </div>
     <div v-else class="not-found">
@@ -114,6 +111,12 @@ export default {
 </script>
 
 <style scoped>
+button.add-to-cart:disabled,
+button.add-to-cart[disabled] {
+  color: #888;
+  background-color: #eee;
+  cursor: initial;
+}
 .wrapper > h1 {
   font-size: 2.5rem;
   text-align: center;

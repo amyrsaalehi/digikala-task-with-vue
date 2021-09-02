@@ -1,6 +1,6 @@
 <template>
   <Filters />
-  <Products :products="products" />
+  <Products :products="products" :found="found" />
 </template>
 
 <script>
@@ -16,8 +16,10 @@ export default {
   setup() {
     const store = useStore();
     const products = computed(() => store.getters["main/products"]);
+    const found = computed(() => store.getters["main/found"]);
     return {
       products,
+      found,
     };
   },
 };

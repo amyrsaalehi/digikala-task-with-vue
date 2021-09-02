@@ -18,6 +18,7 @@ export default {
             total_items: 0,
             total_pages: 0
         },
+        found: true
     }),
     mutations: {
         clearInits(state) {
@@ -41,7 +42,11 @@ export default {
             state.products = products;
             state.sort = sort.default;
             state.pager = pager;
+            state.found = true
         },
+        notFound(state) {
+            state.found = false;
+        }
     },
     actions: {
         getProducts({ commit }, query) {
@@ -54,6 +59,8 @@ export default {
                 .then(res => {
                     if (res.data.status === 200) {
                         commit('updateInits', res.data.data);
+                    } else {
+                        commit('notFound')
                     }
                 })
         },
@@ -72,5 +79,8 @@ export default {
         pager(state) {
             return state.pager
         },
+        found(state) {
+            return state.found
+        }
     }
 }

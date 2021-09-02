@@ -72,6 +72,13 @@ button {
   cursor: pointer;
 }
 
+button:disabled,
+button[disabled] {
+  color: #eee;
+  background-color: #fff;
+  cursor: initial;
+}
+
 input {
   border: none;
   background-color: #fff;
