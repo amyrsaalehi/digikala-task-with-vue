@@ -1,18 +1,20 @@
 <template>
-  <ConditionalLoader :condition="product">
-    <div class="container" v-if="product.status === 'marketable'">
+  <ConditionalLoader :condition="productGetter">
+    <div class="container" v-if="productGetter.status === 'marketable'">
       <div class="img-container">
-        <img :src="product.images.main" :alt="product.title" />
+        <img :src="productGetter.images.main" :alt="productGetter.title" />
       </div>
       <div class="wrapper">
-        <h1>{{ product.title }}</h1>
+        <h1>{{ productGetter.title }}</h1>
         <div class="price-container">
-          <span class="selling"> {{ product.price.selling_price }}$ </span>
-          <span class="rrp"> {{ product.price.rrp_price }}$ </span>
+          <span class="selling">
+            {{ productGetter.price.selling_price }}$
+          </span>
+          <span class="rrp"> {{ productGetter.price.rrp_price }}$ </span>
         </div>
         <div class="rating">
           <p class="rate">
-            <span>{{ `امتیاز ${product.rating.rate}` }}</span>
+            <span>{{ `امتیاز ${productGetter.rating.rate}` }}</span>
             <img
               src="https://cdn.iconscout.com/icon/free/png-512/star-bookmark-favorite-shape-rank-like-32386.png"
               width="25"
@@ -21,7 +23,7 @@
             />
           </p>
           <p class="count">
-            {{ `${product.rating.count} نفر به این محصول رای دادند` }}
+            {{ `${productGetter.rating.count} نفر به این محصول رای دادند` }}
           </p>
         </div>
         <button class="add-to-cart" @click="addToCart">
@@ -44,7 +46,7 @@
 
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
 import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
@@ -64,9 +66,10 @@ export default {
   setup() {
     const store = useStore();
     const route = useRoute();
-    let product = ref(store.getters["currentProduct/product"]);
-
-    console.log(product.value);
+    const product = ref(store.state.currentProduct.product);
+    const productGetter = computed(
+      () => store.getters["currentProduct/product"]
+    );
 
     function addToCart() {
       if (!isProductInCart(store, product.value.id)) {
@@ -94,7 +97,7 @@ export default {
 
     return {
       id: route.params.id,
-      product,
+      productGetter,
       addToCart,
     };
   },
