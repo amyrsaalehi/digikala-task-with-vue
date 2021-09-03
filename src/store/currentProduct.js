@@ -22,7 +22,7 @@ export default {
                 rrp_price: 0
             },
         },
-        founnd: true
+        found: true
     }),
     mutations: {
         setProduct(state, paylaod) {

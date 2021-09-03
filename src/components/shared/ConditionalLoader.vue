@@ -21,14 +21,22 @@ export default {
 .loader {
   margin-top: 1rem;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .loader > img {
-  max-width: 400px;
-  max-height: 400px;
+  max-width: 80%;
+  max-height: 80%;
   object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .loader > img {
+    max-width: 100%;
+    max-height: 100%;
+  }
 }
 </style>

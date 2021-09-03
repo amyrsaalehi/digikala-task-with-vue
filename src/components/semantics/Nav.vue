@@ -1,15 +1,14 @@
 <template>
   <nav>
-    <router-link to="/">Home</router-link>
     <!-- This page is just for test -->
-    <router-link v-if="productId" :to="`/product/${productId}`"
+    <!-- <router-link to="/not/found-page">Not Found</router-link> -->
+
+    <!-- This page is just for test -->
+    <!-- <router-link v-if="productId" :to="`/product/${productId}`"
       >Last Product</router-link
-    >
-
-    <router-link to="/cart">Cart</router-link>
-
-    <!-- This page is just for test -->
-    <router-link to="/not/found-page">Not Found</router-link>
+    > -->
+    <router-link to="/">خانه</router-link>
+    <router-link to="/cart">سبد خرید</router-link>
   </nav>
 </template>
 
@@ -42,6 +41,7 @@ nav {
   top: 0;
   width: 100%;
   box-shadow: 10px 0 30px #2c3e50;
+  direction: rtl;
 }
 
 nav a {
@@ -51,7 +51,7 @@ nav a {
 }
 
 nav a:not(:last-child) {
-  border-right: 1px solid #999;
+  border-left: 1px solid #999;
 }
 
 nav a.router-link-exact-active {
