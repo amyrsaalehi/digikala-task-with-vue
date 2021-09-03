@@ -4,13 +4,13 @@
       <div class="close">
         <button class="close-btn" @click="close">X</button>
       </div>
-      <div class="content-container">
+      <ul class="content-container">
         <Card
           v-for="product in products"
           :key="product.id"
           :product="product"
         />
-      </div>
+      </ul>
       <div class="total">
         <div class="first">
           <p class="rrp-price">قیمت اولیه : {{ totalRrpPrice + " " }}ریال</p>
@@ -83,6 +83,8 @@ export default {
   display: flex;
   flex-flow: column nowrap;
   background-color: #fff;
+  gap: 30px;
+  padding-bottom: 10rem;
   width: 80%;
   height: 90%;
   z-index: 101;
