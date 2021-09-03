@@ -1,6 +1,7 @@
 <template>
-  <ConditionalLoader :condition="product">
-    <div class="container" v-if="found">
+  <Loader :condition="loading" />
+  <div v-if="!loading">
+    <div class="container" v-if="product.id && found">
       <div class="img-container">
         <img :src="product.images.main" :alt="product.title" />
       </div>
@@ -48,7 +49,7 @@
         page.
       </p>
     </div>
-  </ConditionalLoader>
+  </div>
 </template>
 
 
@@ -56,12 +57,12 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useStore } from "vuex";
-import ConditionalLoader from "../components/shared/ConditionalLoader.vue";
+import Loader from "../components/shared/Loader.vue";
 import { updateCart, isProductInCart } from "../utils/cart";
 
 export default {
   name: "Details",
-  components: { ConditionalLoader },
+  components: { Loader },
   created() {
     (async () => {
       await this.$store.dispatch(
@@ -75,6 +76,7 @@ export default {
     const route = useRoute();
     const found = computed(() => store.getters["currentProduct/found"]);
     const product = computed(() => store.getters["currentProduct/product"]);
+    const loading = computed(() => store.getters["currentProduct/loading"]);
 
     function addToCart() {
       if (!isProductInCart(store, product.value.id)) {
@@ -105,6 +107,7 @@ export default {
       product,
       addToCart,
       found,
+      loading,
     };
   },
 };

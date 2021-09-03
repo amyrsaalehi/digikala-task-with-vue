@@ -22,7 +22,8 @@ export default {
                 rrp_price: 0
             },
         },
-        founnd: true
+        found: false,
+        loading: true
     }),
     mutations: {
         setProduct(state, paylaod) {
@@ -31,16 +32,22 @@ export default {
         },
         notFound(state) {
             state.found = false;
+        },
+        setLoading(state, loading) {
+            state.loading = loading
         }
     },
     actions: {
-        getProductDetails({ commit, }, payload) {
+        getProductDetails({ commit }, payload) {
+            commit('setLoading', true)
             return axios.get(`${BASE_URL}/product/${payload}/`, getFetchConfigs).then(res => {
                 if (res.data.status === 200) {
                     commit('setProduct', res.data.data.product)
                 } else {
                     commit('notFound')
                 }
+            }).finally(() => {
+                commit('setLoading', false)
             })
         }
     },
@@ -53,6 +60,9 @@ export default {
         },
         found(state) {
             return state.found
+        },
+        loading(state) {
+            return state.loading
         }
     }
 }

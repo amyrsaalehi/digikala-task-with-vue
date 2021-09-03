@@ -1,22 +1,32 @@
 <template>
-  <ConditionalLoader :condition="products?.length > 0">
-    <ul class="product-container" v-if="found">
-      <Card :product="product" v-for="product in products" :key="product.id" />
-    </ul>
-    <div v-else class="not-found">
-      <h1>Products not found</h1>
-      <p>Please search something else.</p>
-    </div>
-  </ConditionalLoader>
+  <Loader :condition="!products?.length && found" />
+  <ul class="product-container" v-if="found">
+    <Card :product="product" v-for="product in products" :key="product.id" />
+  </ul>
+  <div v-else class="not-found">
+    <h1>Products not found</h1>
+    <p>Please search something else.</p>
+  </div>
 </template>
 
 <script>
 import Card from "./Card.vue";
-import ConditionalLoader from "../../shared/ConditionalLoader.vue";
+import Loader from "../../shared/Loader.vue";
+import { useStore } from "vuex";
+import { computed } from "@vue/reactivity";
+
 export default {
   name: "Products",
-  components: { ConditionalLoader, Card },
-  props: ["products", "found"],
+  components: { Loader, Card },
+  props: ["products"],
+  setup() {
+    const store = useStore();
+    const found = computed(() => store.getters["main/getFound"]);
+
+    return {
+      found,
+    };
+  },
 };
 </script>
 

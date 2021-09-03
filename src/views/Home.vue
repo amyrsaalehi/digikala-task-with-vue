@@ -1,6 +1,6 @@
 <template>
   <Filters />
-  <Products :products="products" :found="found" />
+  <Products :products="products" />
   <Pagination :maxPage="maxPage" :shouldShow="products?.length > 0" />
 </template>
 
@@ -14,16 +14,13 @@ import Pagination from "../components/Home/Filters/Pagination.vue";
 export default {
   name: "Home",
   components: { Filters, Products, Pagination },
-
   setup() {
     const store = useStore();
     const products = computed(() => store.getters["main/products"]);
     const maxPage = computed(() => store.getters["main/maxPage"]);
-    const found = computed(() => store.getters["main/found"]);
 
     return {
       products,
-      found,
       maxPage,
     };
   },

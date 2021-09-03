@@ -29,7 +29,6 @@ export default {
     const searchParams = computed(
       () => store.getters["searchParams/getSearchParams"]
     );
-    console.log(searchParams.value.current_page);
     const currentPage = ref(searchParams.value.current_page || 1);
 
     watch(currentPage, (val) => {

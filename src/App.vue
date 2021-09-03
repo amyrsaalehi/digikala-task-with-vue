@@ -24,14 +24,13 @@ export default {
       if (to.name === "PLP") {
         const query = to.query;
         (async () => {
-          console.log("app squery", query);
           await this.$store.commit("main/clearInits");
           await this.$store.dispatch("main/getProducts", {
             page: query.page,
             rows: query.rows,
             "price[min]": query["price[min]"],
             "price[max]": query["price[max]"],
-            hasSellingStock: query.has_selling_stock || undefined,
+            has_selling_stock: query.has_selling_stock || undefined,
             sort: query.sort || 22,
             q: query.q || undefined,
           });

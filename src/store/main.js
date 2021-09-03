@@ -42,9 +42,10 @@ export default {
             state.products = products;
             state.sort = sort.default;
             state.pager = pager;
-            state.found = true
+            state.found = true;
         },
         notFound(state) {
+            state.products = undefined;
             state.found = false;
         }
     },
@@ -58,6 +59,10 @@ export default {
                 })
                 .then(res => {
                     if (res.data.status === 200) {
+                        if (res.data.data.pager.total_items == 0) {
+                            commit('notFound')
+                            return;
+                        }
                         commit('updateInits', res.data.data);
                     } else {
                         commit('notFound')
@@ -72,7 +77,6 @@ export default {
             return state.products
         },
         prices(state) {
-            console.log('getting prices', state.filters.price)
             return state.filters.price
         },
         sort(state) {
@@ -87,7 +91,7 @@ export default {
         maxItems(state) {
             return state.pager.total_items
         },
-        found(state) {
+        getFound(state) {
             return state.found
         }
     }

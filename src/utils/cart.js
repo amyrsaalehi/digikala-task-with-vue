@@ -43,6 +43,5 @@ export function updateCartDatas(store, storage) {
         return;
     }
     const datas = store.state.cart;
-    console.log('datas are going to store', datas)
     storage.setItem(CART_LOCALSTORAGE_KEY, JSON.stringify(datas))
 }
