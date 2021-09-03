@@ -51,7 +51,7 @@ export default {
     },
     actions: {
         getProducts({ commit }, query) {
-            return axios.get(`${BASE_URL}/search/`, {
+            axios.get(`${BASE_URL}/search/`, {
                     ...getFetchConfigs,
                     params: {
                         ...query,

@@ -40,7 +40,7 @@ export default {
     actions: {
         getProductDetails({ commit }, payload) {
             commit('setLoading', true)
-            return axios.get(`${BASE_URL}/product/${payload}/`, getFetchConfigs).then(res => {
+            axios.get(`${BASE_URL}/product/${payload}/`, getFetchConfigs).then(res => {
                 if (res.data.status === 200) {
                     commit('setProduct', res.data.data.product)
                 } else {
