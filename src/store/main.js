@@ -62,6 +62,8 @@ export default {
                     } else {
                         commit('notFound')
                     }
+                }).catch(() => {
+                    commit('notFound')
                 })
         },
     },
@@ -78,6 +80,12 @@ export default {
         },
         pager(state) {
             return state.pager
+        },
+        maxPage(state) {
+            return state.pager.total_pages
+        },
+        maxItems(state) {
+            return state.pager.total_items
         },
         found(state) {
             return state.found

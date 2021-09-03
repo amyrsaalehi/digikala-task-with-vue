@@ -11,13 +11,13 @@
     <li class="sort-filter">
       <div class="sort-btn">
         <p>مرتب سازی</p>
-        <button @click="sort = 22" :class="{ 'sort-btn-active': sort === 22 }">
+        <button @click="sort = 22" :class="{ 'sort-btn-active': sort == 22 }">
           مرتبط ترین
         </button>
-        <button @click="sort = 4" :class="{ 'sort-btn-active': sort === 4 }">
+        <button @click="sort = 4" :class="{ 'sort-btn-active': sort == 4 }">
           بیشترین بازدید
         </button>
-        <button @click="sort = 27" :class="{ 'sort-btn-active': sort === 27 }">
+        <button @click="sort = 27" :class="{ 'sort-btn-active': sort == 27 }">
           پیشنهاد کاربران
         </button>
       </div>
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import { computed, onBeforeUnmount, ref, watch } from "vue";
-import { useRouter } from "vue-router";
+import { computed, onBeforeUnmount, ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import { useStore } from "vuex";
 import Switch from "../../shared/Switch.vue";
 
@@ -50,27 +50,21 @@ export default {
   setup() {
     const store = useStore();
     const router = useRouter();
-    const maxPage = computed(() => store.getters["main/page"]);
+    const route = useRoute();
+
+    const searchParams = computed(
+      () => store.getters["searchParams/getSearchParams"]
+    );
 
     const has_selling_stock = computed(
-      () => store.getters["searchParams/getHasSellingStock"]
+      () => searchParams.value.has_selling_stock
     );
-    const current_page = ref(
-      computed(() => store.getters["main/pager"].current_page).value
-    );
-    const sort = ref(
-      computed(() => store.getters["searchParams/getSort"]).value
-    );
-    const minPrice = ref(
-      computed(() => store.getters["searchParams/getMinPrice"]).value
-    );
-    const maxPrice = ref(
-      computed(() => store.getters["searchParams/getMaxPrice"]).value
-    );
-    const rows = ref(
-      computed(() => store.getters["searchParams/getRows"]).value
-    );
-    const q = ref(computed(() => store.getters["searchParams/getQuery"]).value);
+    const current_page = ref(searchParams.value.current_page);
+    const sort = ref(searchParams.value.sort);
+    const minPrice = ref(searchParams.value.minPrice);
+    const maxPrice = ref(searchParams.value.maxPrice);
+    const rows = ref(searchParams.value.rows);
+    const q = ref(searchParams.value.q);
 
     onBeforeUnmount(() => {
       store.commit("searchParams/changeSearchParams", {
@@ -84,35 +78,27 @@ export default {
       });
     });
 
-    watch(current_page, (val) => {
-      if (val < 1) {
-        current_page.value = 1;
-      }
-      if (val > store.getters["main/pager"].total_pages) {
-        current_page.value = maxPage.value.total_pages;
-      }
-    });
-
     function search() {
-      let query = Object.assign({}, router.query, {
+      let query = Object.assign({}, route.query, {
         page: current_page.value,
         rows: rows.value,
         "price[min]": minPrice.value || 0,
         "price[max]": maxPrice.value || 0,
         has_selling_stock: has_selling_stock.value || undefined,
         sort: sort.value,
-        q: q.value === "" ? undefined : q.value,
+        q: q.value !== "" ? q.value : undefined,
       });
-      store.commit("searchParams/changeCurrentPage", current_page.value);
-      store.commit("searchParams/changePriceRange", {
-        from: minPrice.value,
-        to: maxPrice.value,
+      store.commit("searchParams/changeSearchParams", {
+        has_selling_stock: has_selling_stock.value,
+        minPrice: minPrice.value,
+        maxPrice: maxPrice.value,
+        sort: sort.value,
+        current_page: current_page.value,
+        rows: rows.value,
+        q: q.value,
       });
-      store.commit("searchParams/changeSort", sort.value);
-      store.commit("searchParams/changeQuery", q.value);
       router.replace({ query });
     }
-
     return {
       current_page,
       search,

@@ -25,7 +25,7 @@ export default {
         const query = to.query;
 
         (async () => {
-          console.log("query", query);
+          console.log("app squery", query);
           await this.$store.commit("main/clearInits");
           await this.$store.dispatch("main/getProducts", {
             page: query.page,
@@ -33,17 +33,27 @@ export default {
             "price[min]": query["price[min]"],
             "price[max]": query["price[max]"],
             hasSellingStock: query.has_selling_stock || undefined,
-            sort: query.sort,
+            sort: query.sort || 22,
             q: query.q || undefined,
           });
         })();
+
+        this.$store.commit("searchParams/changeSearchParams", {
+          has_selling_stock: query.has_selling_stock || 0,
+          minPrice: query["price[min]"] || 0,
+          maxPrice: query["price[max]"] || 0,
+          sort: query.sort || 22,
+          current_page: query.page || 1,
+          rows: query.rows || 25,
+          q: query.q || undefined,
+        });
       }
       this.$progress.start();
       next();
     });
 
     this.$router.afterEach(() => {
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
       this.$progress.finish();
     });
   },

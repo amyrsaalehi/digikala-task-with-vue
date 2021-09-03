@@ -59,6 +59,9 @@ export default {
         },
         getSort(state) {
             return state.sort;
+        },
+        getCurrentPage(state) {
+            return state.current_page
         }
     }
 }
