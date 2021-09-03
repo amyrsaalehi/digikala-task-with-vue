@@ -180,7 +180,7 @@ li img {
   height: 40px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 913px) {
   li {
     height: auto;
     flex-flow: column-reverse wrap;

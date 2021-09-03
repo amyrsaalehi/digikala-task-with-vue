@@ -44,15 +44,17 @@ export default {
 <style scoped>
 .container {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: column nowrap;
   gap: 30px;
-  margin-bottom: 3rem;
+  margin-bottom: 15rem;
   min-height: 100vh;
 }
 
 .total {
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  left: 10%;
+  right: 10%;
   display: flex;
   background-color: #333;
   direction: rtl;
@@ -99,6 +101,10 @@ p {
     font-size: 1rem;
     color: #fff;
     padding: 0.5rem 0;
+  }
+  .total {
+    left: 0;
+    right: 0;
   }
 }
 </style>

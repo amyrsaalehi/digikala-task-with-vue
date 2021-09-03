@@ -23,7 +23,6 @@ export default {
     this.$router.beforeEach(async (to, from, next) => {
       if (to.name === "PLP") {
         const query = to.query;
-
         (async () => {
           console.log("app squery", query);
           await this.$store.commit("main/clearInits");
@@ -106,5 +105,6 @@ input {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 </style>
