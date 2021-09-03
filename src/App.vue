@@ -60,8 +60,46 @@ export default {
 </script>
 
 <style>
+/* Vazir Fonts */
+@font-face {
+  font-family: Vazir;
+  src: url("./assets/fonts/Vazir-Bold.eot");
+  src: url("./assets/fonts/Vazir-Bold.woff") format("woff"),
+    url("./assets/fonts/Vazir-Bold.ttf") format("truetype")
+      url("./assets/fonts/Vazir-Bold.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: Vazir;
+  src: url("./assets/fonts/Vazir-Medium.eot");
+  src: url("./assets/fonts/Vazir-Medium.woff") format("woff"),
+    url("./assets/fonts/Vazir-Medium.ttf") format("truetype")
+      url("./assets/fonts/Vazir-Medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: VazirDigits;
+  src: url("./assets/fonts/Vazir-Bold-FD-WOL.eot");
+  src: url("./assets/fonts/Vazir-Bold-FD-WOL.woff") format("woff"),
+    url("./assets/fonts/Vazir-Bold-FD-WOL.ttf") format("truetype")
+      url("./assets/fonts/Vazir-Bold-FD-WOL.woff2") format("woff2");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: VazirDigits;
+  src: url("./assets/fonts/Vazir-FD-WOL.eot");
+  src: url("./assets/fonts/Vazir-FD-WOL.woff") format("woff"),
+    url("./assets/fonts/Vazir-FD-WOL.ttf") format("truetype")
+      url("./assets/fonts/Vazir-FD-WOL.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
 /* Reset Styles */
 * {
+  font-family: "Vazir", "VazirDigits", sans-serif;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
@@ -100,7 +138,6 @@ input {
 /* App styles */
 
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
