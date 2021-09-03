@@ -33,13 +33,15 @@
           </p>
         </div>
         <button
-          v-if="!product.status === 'marketable'"
+          v-if="product.status === 'marketable'"
           class="add-to-cart"
           @click="addToCart"
         >
           افزودن به سبد خرید
         </button>
-        <button disabled class="add-to-cart">موجود شد به من اطلاع بده</button>
+        <button v-else disabled class="add-to-cart">
+          موجود شد به من اطلاع بده
+        </button>
       </div>
     </div>
     <div v-else class="not-found">

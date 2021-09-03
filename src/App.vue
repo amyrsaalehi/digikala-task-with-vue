@@ -21,10 +21,16 @@ export default {
     this.$progress.start();
     restoreCartDatas(this.$store, window.localStorage);
     this.$router.beforeEach(async (to, from, next) => {
+      this.$progress.start();
+      if (to.fullPath === "/") {
+        this.$router.push("/?page=1&rows=10&price[min]=0&price[max]=0&sort=22");
+        next();
+        return;
+      }
       if (to.name === "PLP") {
         const query = to.query;
         (async () => {
-          await this.$store.commit("main/clearInits");
+          this.$store.commit("main/clearInits");
           await this.$store.dispatch("main/getProducts", {
             page: query.page,
             rows: query.rows,
@@ -46,7 +52,6 @@ export default {
           q: query.q || undefined,
         });
       }
-      this.$progress.start();
       next();
     });
 

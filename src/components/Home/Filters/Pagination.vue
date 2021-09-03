@@ -29,7 +29,9 @@ export default {
     const searchParams = computed(
       () => store.getters["searchParams/getSearchParams"]
     );
-    const currentPage = ref(searchParams.value.current_page || 1);
+    const currentPage = ref(
+      route.query.page || searchParams.value.current_page || 1
+    );
 
     watch(currentPage, (val) => {
       if (val <= 1) {
