@@ -72,27 +72,5 @@ export default {
                 })
         },
     },
-    getters: {
-        products(state) {
-            return state.products
-        },
-        prices(state) {
-            return state.filters.price
-        },
-        sort(state) {
-            return state.sort
-        },
-        pager(state) {
-            return state.pager
-        },
-        maxPage(state) {
-            return state.pager.total_pages
-        },
-        maxItems(state) {
-            return state.pager.total_items
-        },
-        getFound(state) {
-            return state.found
-        }
-    }
+    getters: {}
 }

@@ -38,30 +38,5 @@ export default {
         },
     },
     actions: {},
-    getters: {
-        getSearchParams(state) {
-            return state;
-        },
-        getHasSellingStock(state) {
-            return state.has_selling_stock
-        },
-        getQuery(state) {
-            return state.query;
-        },
-        getRows(state) {
-            return state.rows;
-        },
-        getMinPrice(state) {
-            return state.price_range[0]
-        },
-        getMaxPrice(state) {
-            return state.price_range[1]
-        },
-        getSort(state) {
-            return state.sort;
-        },
-        getCurrentPage(state) {
-            return state.current_page
-        }
-    }
+    getters: {}
 }

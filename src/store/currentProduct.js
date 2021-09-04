@@ -52,17 +52,8 @@ export default {
         }
     },
     getters: {
-        product(state) {
-            return state.product;
-        },
         totalDiscount(state) {
             return calculateDiscountPercentage(state.product.price.selling_price, state.product.price.rrp_price)
         },
-        found(state) {
-            return state.found
-        },
-        loading(state) {
-            return state.loading
-        }
     }
 }

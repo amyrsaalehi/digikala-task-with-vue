@@ -2,15 +2,7 @@
   <nav>
     <div>
       <router-link to="/">خانه</router-link>
-      <!-- This page is just for test -->
-      <!-- <router-link v-if="productId" :to="`/product/${productId}`"
-      >Last Product</router-link
-    > -->
-
       <router-link to="/cart">سبد خرید</router-link>
-
-      <!-- This page is just for test -->
-      <!-- <router-link to="/not/found-page">Not Found</router-link> -->
     </div>
     <button @click="shouldShow = true" class="quick-cart">
       <img
@@ -22,24 +14,13 @@
 </template>
 
 <script>
-import { watch, ref } from "vue";
-import { useStore } from "vuex";
 import Modal from "../Cart/Modal.vue";
 export default {
   components: { Modal },
   name: "Nav",
-  setup() {
-    const store = useStore();
-    const id = store.getters["currentProduct/product"];
-    const shouldShow = ref(false);
-
-    let productId = id.id;
-    watch(id, (val) => {
-      productId = val;
-    });
+  data() {
     return {
-      shouldShow,
-      productId,
+      shouldShow: false,
     };
   },
 };

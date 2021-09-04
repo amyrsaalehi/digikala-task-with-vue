@@ -41,23 +41,10 @@ export default {
             })
         }
     },
-    actions: {},
     getters: {
-        getProducts(state) {
-            return state.products
-        },
-
         getTotalDiscountPercentage(state) {
             return calculateDiscountPercentage(state.selling_price, state.rrp_price)
         },
-
-        getTotalSellingPrice(state) {
-            return state.total_selling_price
-        },
-        getTotalRrpPrice(state) {
-            return state.total_rrp_price
-        },
-
         getTotalSellingPriceSplitted(state) {
             return split3Digits(state.total_selling_price)
         },

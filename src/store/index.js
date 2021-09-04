@@ -7,20 +7,10 @@ import currentProduct from './currentProduct'
 
 export default createStore({
     plugins: [createLogger()],
-    state: {
-        globalLoading: false
-    },
-    mutations: {
-        setGlobalLoading(state, paylaod) {
-            state.globalLoading = paylaod
-        }
-    },
+    state: {},
+    mutations: {},
     actions: {},
-    getters: {
-        globalLoading(state) {
-            return state.globalLoading
-        }
-    },
+    getters: {},
     modules: {
         main,
         searchParams,
