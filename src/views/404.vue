@@ -1,12 +1,12 @@
 <template>
   <div class="wrapper">
-    <div class="img-container">
+    <!-- <div class="img-container">
       <img
         src="http://grootech.id/frontAsset/img/not-found.gif"
         alt="not-marketable"
       />
-    </div>
-    <h1>404 | Not Found</h1>
+    </div> -->
+    <Text3D text="404" />
     <p>
       Unfortunatly, This page is removed or doesn't exist. You can click this
       <router-link :to="{ name: 'PLP' }">Link</router-link> to go back Home
@@ -16,8 +16,12 @@
 </template>
 
 <script>
+import Text3D from "@/components/shared/Text3D.vue";
 export default {
   name: "NotFound",
+  components: {
+    Text3D,
+  },
 };
 </script>
 
@@ -27,6 +31,7 @@ export default {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 .img-container {
   max-width: 700px;
@@ -39,10 +44,6 @@ img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-h1 {
-  margin: 2rem 0;
 }
 
 h1,

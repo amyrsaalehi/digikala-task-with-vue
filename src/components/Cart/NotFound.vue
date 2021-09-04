@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="img-container">
       <img
-        src="https://icon-library.com/images/progress-icon-gif/progress-icon-gif-11.jpg"
+        src="http://grootech.id/frontAsset/img/not-found.gif"
         alt="not-marketable"
       />
     </div>

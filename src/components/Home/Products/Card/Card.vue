@@ -40,7 +40,7 @@ export default {
 li {
   display: flex;
   flex: 1 1 400px;
-  background-color: #fff;
+  background-color: var(--white);
   border: 1px solid #eee;
   border-radius: 10px;
   flex-flow: column nowrap;

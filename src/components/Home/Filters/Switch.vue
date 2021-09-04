@@ -80,11 +80,11 @@ export default {
 }
 
 input:checked + .slider {
-  background-color: #333;
+  background-color: var(--dark);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #333;
+  box-shadow: 0 0 1px var(--dark);
 }
 
 input:checked + .slider:before {

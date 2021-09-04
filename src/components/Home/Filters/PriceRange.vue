@@ -101,7 +101,7 @@ export default {
 li {
   display: flex;
   flex-flow: row-reverse wrap;
-  background-color: #fff;
+  background-color: var(--white);
   align-items: center;
   justify-content: center;
   gap: 1rem;
@@ -125,13 +125,13 @@ form {
 }
 
 .price-range-filter input[type="submit"] {
-  border: 1px solid #333;
-  color: #333;
+  border: 1px solid var(--dark);
+  color: var(--dark);
   cursor: pointer;
   transition: 0.2s all linear;
 }
 .price-range-filter input[type="submit"]:hover {
-  background-color: #333;
+  background-color: var(--dark);
   color: #eee;
 }
 @media screen and (max-width: 768px) {

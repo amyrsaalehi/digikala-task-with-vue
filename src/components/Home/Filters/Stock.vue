@@ -17,7 +17,7 @@ export default {
 <style scoped>
 li {
   display: flex;
-  background-color: #fff;
+  background-color: var(--white);
   justify-content: center;
   align-items: center;
 }
@@ -36,7 +36,7 @@ li {
   padding: 1rem;
   font-size: 1.4rem;
   color: #eee;
-  background-color: #333;
+  background-color: var(--dark);
   border-radius: 5px;
 }
 

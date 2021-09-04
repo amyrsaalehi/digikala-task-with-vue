@@ -21,7 +21,7 @@ export default {
 li {
   height: 200px;
   display: flex;
-  background-color: #fff;
+  background-color: var(--white);
   border: 1px solid #eee;
   border-radius: 10px;
   flex-flow: row nowrap;

@@ -10,5 +10,10 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+header {
+  overflow-x: hidden;
+  perspective: 1px;
+  transform-style: preserve-3d;
+}
 </style>
