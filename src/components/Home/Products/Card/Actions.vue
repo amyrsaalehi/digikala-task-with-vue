@@ -1,6 +1,8 @@
 <template>
   <div class="actions-container">
-    <router-link :to="`/product/${product.id}`"> جزیات </router-link>
+    <router-link :to="{ name: 'PDP', params: { id: product.id } }">
+      جزیات
+    </router-link>
     <button
       v-if="product.status === 'marketable'"
       class="add-to-cart"

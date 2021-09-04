@@ -2,8 +2,8 @@
   <div class="not-found">
     <h1>Product not found</h1>
     <p>
-      Click this <router-link to="/">Link</router-link> tot go back to Home
-      page.
+      Click this <router-link :to="{ name: 'PLP' }">Link</router-link> tot go
+      back to Home page.
     </p>
   </div>
 </template>

@@ -9,7 +9,8 @@
     <h1>404 | Not Found</h1>
     <p>
       Unfortunatly, This page is removed or doesn't exist. You can click this
-      <router-link to="/">Link</router-link> to go back Home page.
+      <router-link :to="{ name: 'PLP' }">Link</router-link> to go back Home
+      page.
     </p>
   </div>
 </template>

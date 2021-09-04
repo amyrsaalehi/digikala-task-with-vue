@@ -4,7 +4,9 @@
       {{ product.title }}
     </h4>
     <div class="main-actions">
-      <router-link :to="`/product/${product.id}`"> بیشتر </router-link>
+      <router-link :to="{ name: 'PDP', params: { id: product.id } }">
+        بیشتر
+      </router-link>
       <button class="remove-from-cart" @click="removeFromCart">حذف</button>
     </div>
   </div>

@@ -1,8 +1,8 @@
 <template>
   <nav>
     <div>
-      <router-link to="/">خانه</router-link>
-      <router-link to="/cart">سبد خرید</router-link>
+      <router-link :to="{ name: 'PLP' }">خانه</router-link>
+      <router-link :to="{ name: 'Cart' }">سبد خرید</router-link>
     </div>
     <button @click="shouldShow = true" class="quick-cart">
       <img
