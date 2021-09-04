@@ -26,7 +26,7 @@ export default {
     const route = useRoute();
     const router = useRouter();
 
-    const sort = ref(22);
+    const sort = ref(route.query.sort || store.state.searchParams.sort || 22);
 
     watch(sort, (val) => {
       let query = Object.assign({}, route.query, {

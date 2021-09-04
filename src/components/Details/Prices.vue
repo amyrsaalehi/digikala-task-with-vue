@@ -1,19 +1,28 @@
 <template>
   <div class="price-container" v-if="product.status === 'marketable'">
-    <span class="selling"> {{ product.price.selling_price + " " }}ریال </span>
+    <span class="selling"> {{ sellingPrice + " " }}تومان </span>
     <span
       v-if="product.price.selling_price !== product.price.rrp_price"
       class="rrp"
     >
-      {{ product.price.rrp_price + " " }}ریال
+      {{ rrpPrice + " " }}تومان
     </span>
   </div>
 </template>
 
 <script>
+import { split3Digits } from "@/utils/helpers";
 export default {
   // TODO: make it 3digits
   props: ["product"],
+  computed: {
+    sellingPrice() {
+      return split3Digits(this.product.price.selling_price);
+    },
+    rrpPrice() {
+      return split3Digits(this.product.price.rrp_price);
+    },
+  },
 };
 </script>
 

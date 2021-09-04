@@ -1,4 +1,5 @@
-export function split3Digits(number) {
+export function split3Digits(n) {
+    let number = n / 10;
     if (number <= 999) {
         return number
     }

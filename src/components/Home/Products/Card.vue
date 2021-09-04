@@ -10,7 +10,7 @@
       <p class="discount" v-if="discountPercentage !== 0">
         -{{ discountPercentage }}%
       </p>
-      <p class="price">{{ price + " " }}ریال</p>
+      <p class="price">{{ price + " " }}تومان</p>
     </div>
     <div class="actions-container" v-if="product.status === 'marketable'">
       <router-link :to="`/product/${product.id}`"> جزیات </router-link>

@@ -6,61 +6,43 @@
       </div>
       <ul class="content-container">
         <Card
-          v-for="product in products"
+          v-for="product in $store.state.cart.products"
           :key="product.id"
           :product="product"
         />
       </ul>
-      <div class="total">
-        <div class="first">
-          <p class="rrp-price">قیمت اولیه : {{ totalRrpPrice + " " }}ریال</p>
-          <p class="discount-price">
-            تخفیف : {{ totalDiscountPrice + " " }}ریال
-          </p>
-        </div>
-        <p class="selling-price">
-          قیمت نهایی : {{ totalSellingPrice + " " }}ریال
-        </p>
-        <button @click="pay" class="pay">پرداخت</button>
-      </div>
+      <Total
+        :totalRrpPrice="totalRrpPrice"
+        :totalDiscountPrice="totalDiscountPrice"
+        :totalSellingPrice="totalSellingPrice"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Card from "./Card.vue";
-import { useStore } from "vuex";
-import { reactive, computed } from "vue";
+import Card from "@/components/Cart/Card.vue";
+import { mapGetters } from "vuex";
+import Total from "@/components/Cart/Total.vue";
 
 export default {
   props: ["shouldShow"],
   emits: ["close"],
   components: {
     Card,
+    Total,
+  },
+  computed: {
+    ...mapGetters({
+      totalSellingPrice: "cart/getTotalSellingPriceSplitted",
+      totalRrpPrice: "cart/getTotalRrpPriceSplitted",
+      totalDiscountPrice: "cart/getTotalDiscountPriceSplitted",
+    }),
   },
   methods: {
     close() {
       this.$emit("close");
     },
-  },
-  setup() {
-    const store = useStore();
-    const products = reactive(store.getters["cart/getProducts"]);
-    const totalSellingPrice = computed(
-      () => store.getters["cart/getTotalSellingPriceSplitted"]
-    );
-    const totalRrpPrice = computed(
-      () => store.getters["cart/getTotalRrpPriceSplitted"]
-    );
-    const totalDiscountPrice = computed(
-      () => store.getters["cart/getTotalDiscountPriceSplitted"]
-    );
-    return {
-      products,
-      totalSellingPrice,
-      totalDiscountPrice,
-      totalRrpPrice,
-    };
   },
 };
 </script>
