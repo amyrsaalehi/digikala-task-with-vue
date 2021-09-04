@@ -1,7 +1,10 @@
 <template>
   <Loader :condition="loading" />
   <div v-if="!loading">
-    <div class="container" v-if="product.id && found">
+    <div
+      class="container"
+      v-if="product.id && $store.state.currentProduct.found"
+    >
       <Image :product="product" />
       <div class="wrapper">
         <h1>{{ product.title }}</h1>
@@ -35,9 +38,9 @@ export default {
     );
   },
   computed: {
-    ...mapState("currentProduct", "found"),
-    ...mapState("currentProduct", "product"),
-    ...mapState("currentProduct", "loading"),
+    ...mapState("currentProduct", ["found"]),
+    ...mapState("currentProduct", ["product"]),
+    ...mapState("currentProduct", ["loading"]),
   },
 };
 </script>

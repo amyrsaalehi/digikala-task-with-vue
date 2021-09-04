@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import Card from "@/components/Cart/Card.vue";
+import Card from "@/components/Cart/Card/Card.vue";
 import { mapGetters } from "vuex";
 import Total from "@/components/Cart/Total.vue";
 

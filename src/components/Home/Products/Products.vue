@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Card from "@/components/Home/Products/Card.vue";
+import Card from "@/components/Home/Products/Card/Card.vue";
 import Loader from "@/components/shared/Loader.vue";
 import { mapState } from "vuex";
 

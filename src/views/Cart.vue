@@ -15,7 +15,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Card from "@/components/Cart/Card.vue";
+import Card from "@/components/Cart/Card/Card.vue";
 import Total from "@/components/Cart/Total.vue";
 
 export default {
