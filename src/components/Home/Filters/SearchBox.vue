@@ -34,7 +34,7 @@ export default {
 <style scoped>
 li {
   display: flex;
-  background-color: #fff;
+  background-color: var(--white);
   justify-content: center;
   align-items: center;
 }

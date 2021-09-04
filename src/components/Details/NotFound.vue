@@ -23,6 +23,6 @@
 }
 
 .not-found a {
-  color: #333;
+  color: var(--dark);
 }
 </style>

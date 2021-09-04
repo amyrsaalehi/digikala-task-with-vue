@@ -1,21 +1,33 @@
 <template>
   <vue3-progress />
   <Nav />
+  <Header v-if="this.$route.name === 'PLP'">
+    <HomeHeader />
+  </Header>
   <Main>
     <router-view />
   </Main>
+  <Footer>
+    <p>All rights reserved 2021&copy;</p>
+  </Footer>
 </template>
 
 <script>
 import Nav from "@/components/semantics/Nav.vue";
 import Main from "@/components/semantics/Main.vue";
 import { restoreCartDatas } from "@/utils/cart";
+import Header from "@/components/semantics/Header.vue";
+import HomeHeader from "@/components/Home/HomeHeader.vue";
+import Footer from "@/components/semantics/Footer.vue";
 
 export default {
   name: "App",
   components: {
     Nav,
     Main,
+    Header,
+    HomeHeader,
+    Footer,
   },
   methods: {
     updateSearchParams(query) {
@@ -82,6 +94,17 @@ export default {
 </script>
 
 <style>
+/* Variables */
+:root {
+  --btn-danger: #b94724;
+  --dark: #333;
+  --light: #eee;
+  --white: #fff;
+  --pay: teal;
+  --nav: #2c3e50;
+  --router-active: #42b983;
+}
+
 /* Vazir Fonts */
 @font-face {
   font-family: Vazir;
@@ -136,22 +159,48 @@ a {
 }
 
 button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   outline: none;
   cursor: pointer;
+  transition: 0.3 all ease-in-out;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+}
+
+button.btn-outline {
+  background-color: var(--white);
+  color: var(--dark);
+  border: 1px solid var(--dark);
+  font-size: 1rem;
+}
+
+button.btn-danger {
+  background-color: var(--white);
+  border: 1px solid var(--btn-danger);
+  color: var(--btn-danger);
+  font-size: 0.75rem;
+}
+
+button.outline:hover {
+  background-color: var(--dark);
+  color: var(--white);
+  border: 1px solid var(--dark);
 }
 
 button:disabled,
 button[disabled] {
-  color: #eee;
-  background-color: #fff;
+  color: var(--light);
+  background-color: var(--white);
   cursor: initial;
 }
 
 input {
   border: none;
-  background-color: #fff;
-  color: #333;
+  background-color: var(--white);
+  color: var(--dark);
   padding: 1rem 2rem;
   font-size: 1.3rem;
   border-radius: 10px;
@@ -162,7 +211,6 @@ input {
 #app {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
   scroll-behavior: smooth;
   overflow-x: hidden;
 }

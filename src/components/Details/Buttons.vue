@@ -43,7 +43,7 @@ export default {
 
 <style scoped>
 .add-to-cart {
-  background-color: #333;
+  background-color: var(--dark);
   color: #eee;
   padding: 1rem 0;
   font-size: 1.2rem;

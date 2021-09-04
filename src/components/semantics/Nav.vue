@@ -34,10 +34,10 @@ nav {
   right: 0;
   z-index: 99;
   padding: 2rem;
-  background-color: #fff;
+  background-color: var(--white);
   width: 100%;
   max-height: 100px;
-  box-shadow: 10px 0 30px #2c3e50;
+  box-shadow: 10px 0 30px var(--nav);
   direction: rtl;
   display: flex;
   justify-content: space-between;
@@ -47,7 +47,7 @@ nav {
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: var(--nav);
   padding: 0.25rem 1rem;
   height: 100%;
   display: inline-block;
@@ -58,7 +58,7 @@ nav a:not(:last-child) {
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: var(--router-active);
 }
 
 .quick-cart {
@@ -69,7 +69,7 @@ nav a.router-link-exact-active {
   height: 55px;
   padding: 1rem;
   background-color: transparent;
-  color: #333;
+  color: var(--dark);
   overflow: hidden;
 }
 

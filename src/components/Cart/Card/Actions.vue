@@ -5,16 +5,20 @@
     </h4>
     <div class="main-actions">
       <router-link :to="{ name: 'PDP', params: { id: product.id } }">
-        بیشتر
       </router-link>
-      <button class="remove-from-cart" @click="removeFromCart">حذف</button>
+      <Link title="بیشتر" :id="product.id" />
+      <button class="remove-from-cart btn-danger" @click="removeFromCart">
+        حذف
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import { updateCart } from "@/utils/cart";
+import Link from "@/components/shared/Link.vue";
 export default {
+  components: { Link },
   props: ["product"],
   methods: {
     removeFromCart() {
@@ -56,27 +60,8 @@ export default {
   font-size: 1.2rem;
 }
 
-.main-actions > a {
-  justify-content: center;
-  display: block;
-  color: #eee;
-  background-color: #2c2c2c;
-  border-radius: 10px;
-  padding: 0.5rem 2rem;
-  height: 40px;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-}
-
 .remove-from-cart {
   display: block;
-  color: #eee;
-  background-color: #2c2c2c;
-  padding: 0.5rem 2rem;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 0.75rem;
   height: 40px;
 }
 @media screen and (max-width: 913px) {

@@ -68,7 +68,7 @@ export default {
 .container {
   display: flex;
   flex-flow: column nowrap;
-  background-color: #fff;
+  background-color: var(--white);
   gap: 30px;
   padding-bottom: 10rem;
   width: 80%;
@@ -89,11 +89,11 @@ export default {
 }
 
 .close-btn:hover {
-  color: #333;
+  color: var(--dark);
 }
 
 .content-container {
-  background-color: #fff;
+  background-color: var(--white);
   height: 100%;
   overflow-y: scroll;
   padding: 1rem 2rem;
@@ -104,7 +104,7 @@ export default {
   left: 10%;
   right: 10%;
   display: flex;
-  background-color: #333;
+  background-color: var(--dark);
   direction: rtl;
   flex-flow: column nowrap;
   border-radius: 10px;
@@ -120,7 +120,7 @@ export default {
 
 p {
   font-size: 1.4rem;
-  color: #fff;
+  color: var(--white);
   padding: 0.5rem 0;
 }
 
@@ -137,8 +137,8 @@ p {
 }
 
 .pay {
-  background-color: teal;
-  color: #fff;
+  background-color: var(--pay);
+  color: var(--white);
   padding: 1rem 2rem;
   font-size: 1.2rem;
   border-radius: 5px;
@@ -147,7 +147,7 @@ p {
 @media screen and (max-width: 768px) {
   p {
     font-size: 1rem;
-    color: #fff;
+    color: var(--white);
     padding: 0.5rem 0;
   }
   .container {
