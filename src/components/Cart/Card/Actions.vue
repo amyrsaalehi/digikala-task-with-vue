@@ -24,7 +24,7 @@ export default {
     removeFromCart() {
       updateCart(
         this.$store,
-        "cart/remoteProduct",
+        "cart/removeProduct",
         this.product.id,
         window.localStorage
       );

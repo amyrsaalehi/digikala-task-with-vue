@@ -28,7 +28,7 @@ export default {
         addProduct(state, product) {
             state.products.push(product)
         },
-        remoteProduct(state, id) {
+        removeProduct(state, id) {
             const index = state.products.findIndex(item => item.id === id);
             state.products.splice(index, 1)
         },
