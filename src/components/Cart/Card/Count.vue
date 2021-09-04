@@ -2,7 +2,7 @@
   <div class="count-actions">
     <button class="reduce-count" @click="reduceCount">-</button>
     <span class="count">
-      {{ product.count }}
+      {{ count }}
     </span>
     <button class="add-count" @click="addCount">+</button>
   </div>
@@ -17,17 +17,18 @@ export default {
       count: this.product.count,
     };
   },
-  method: {
+  methods: {
     removeFromCart() {
       updateCart(
         this.$store,
-        "cart/remoteProduct",
+        "cart/removeProduct",
         this.product.id,
         window.localStorage
       );
     },
     reduceCount() {
-      if (--this.value > 0) {
+      console.log("reduce");
+      if (--this.count > 0) {
         updateCart(
           this.$store,
           "cart/reduceCount",
@@ -46,7 +47,7 @@ export default {
         this.product.id,
         window.localStorage
       );
-      this.value++;
+      this.count++;
     },
   },
 };

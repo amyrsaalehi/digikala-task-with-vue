@@ -26,6 +26,7 @@ li {
   border-radius: 10px;
   flex-flow: row nowrap;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 @media screen and (max-width: 913px) {
