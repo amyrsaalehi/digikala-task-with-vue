@@ -4,7 +4,7 @@
       <div class="close">
         <button class="close-btn" @click="close">X</button>
       </div>
-      <ul class="content-container">
+      <ul class="content-container" v-if="$store.state.cart.products.length">
         <Card
           v-for="product in $store.state.cart.products"
           :key="product.id"
@@ -15,7 +15,9 @@
         :totalRrpPrice="totalRrpPrice"
         :totalDiscountPrice="totalDiscountPrice"
         :totalSellingPrice="totalSellingPrice"
+        v-if="$store.state.cart.products.length"
       />
+      <NotFound v-else />
     </div>
   </div>
 </template>
@@ -24,6 +26,7 @@
 import Card from "@/components/Cart/Card/Card.vue";
 import { mapGetters } from "vuex";
 import Total from "@/components/Cart/Total.vue";
+import NotFound from "@/components/Cart/NotFound.vue";
 
 export default {
   props: ["shouldShow"],
@@ -31,6 +34,7 @@ export default {
   components: {
     Card,
     Total,
+    NotFound,
   },
   computed: {
     ...mapGetters({
