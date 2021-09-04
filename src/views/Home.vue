@@ -1,6 +1,6 @@
 <template>
   <Filters />
-  <Products :products="allProducts" />
+  <Products :products="allProducts" :loading="loading" />
 </template>
 
 <script>
@@ -14,11 +14,46 @@ export default {
   data() {
     return {
       page: this.current_page || 1,
+      scrollTop: document.documentElement.scrollTop,
+      scrollHeight: document.documentElement.scrollHeight,
+      clientHeight: document.documentElement.clientHeight,
     };
   },
   computed: {
     ...mapState("main", ["allProducts"]),
+    ...mapState("main", ["products"]),
     ...mapState("searchParams", ["current_page"]),
+    ...mapState("main", ["found"]),
+    ...mapState("main", ["allFound"]),
+    shouldLoadMore() {
+      return this.scrollTop + this.clientHeight >= this.scrollHeight - 10;
+    },
+    loading() {
+      return (
+        this.allProducts.length === this.products.length ||
+        !this.found ||
+        !this.allFound ||
+        this.allProducts.length === 0
+      );
+    },
+    // canScroll() {
+    //   return !this.loading && !this.shouldLoadMore;
+    // },
+  },
+  watch: {
+    // canScroll(val) {
+    //   if (!val) {
+    //     this.disableScrolling();
+    //   } else {
+    //     this.enableScrolling();
+    //   }
+    // },
+    page(val, oldVal) {
+      val === oldVal + 1 && this.loadMorePosts();
+    },
+    loading(val) {
+      console.log(val);
+    },
   },
   methods: {
     loadMorePosts() {
@@ -29,20 +64,21 @@ export default {
       this.$router.replace({ query });
     },
     handleScroll() {
-      const scrollTop = document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
+      this.scrollTop = document.documentElement.scrollTop;
+      this.scrollHeight = document.documentElement.scrollHeight;
+      this.clientHeight = document.documentElement.clientHeight;
 
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
-        if (this.allProducts.length === 0) {
-          console.log("avaleshe baba");
-          return;
-        }
+      if (this.shouldLoadMore) {
         this.page += 1;
-        this.loadMorePosts();
-        console.log("berim update baby");
+        console.error("add page");
       }
     },
+    // disableScrolling() {
+    //   document.documentElement.style.overflow = "hidden";
+    // },
+    // enableScrolling() {
+    //   document.documentElement.style.overflow = "auto";
+    // },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);

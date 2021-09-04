@@ -19,7 +19,8 @@ export default {
             total_items: 0,
             total_pages: 0
         },
-        found: true
+        found: true,
+        allFound: true
     }),
     mutations: {
         clearInits(state) {
@@ -49,15 +50,20 @@ export default {
             } else {
                 state.allProducts = products
             }
+            state.allFound = true;
             state.found = true;
         },
         notFound(state) {
             state.products = undefined;
-            state.found = false;
+            state.allFound = false;
+        },
+        loadingFoundAll(state) {
+            state.allFound = false
         }
     },
     actions: {
         updateInits({ commit }, query) {
+            commit('loadingFoundAll')
             axios.get(`${BASE_URL}/search/`, {
                     ...getFetchConfigs,
                     params: {

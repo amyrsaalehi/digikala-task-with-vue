@@ -19,6 +19,7 @@ import Card from "@/components/Cart/Card/Card.vue";
 import Total from "@/components/Cart/Total.vue";
 
 export default {
+  name: "Cart",
   components: { Card, Total },
   computed: {
     ...mapGetters({

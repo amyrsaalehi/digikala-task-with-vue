@@ -29,11 +29,24 @@ export default {
         q: query.q || undefined,
       });
     },
+    updateInits(query) {
+      this.$store.dispatch("main/updateInits", {
+        page: query.page,
+        rows: query.rows,
+        "price[min]": query["price[min]"],
+        "price[max]": query["price[max]"],
+        has_selling_stock: query.has_selling_stock || undefined,
+        sort: query.sort || 22,
+        q: query.q || undefined,
+      });
+    },
   },
   created() {
     this.$progress.start();
+
     // Restore Cart Datas
     restoreCartDatas(this.$store, window.localStorage);
+
     // Router Befor
     this.$router.beforeEach(async (to, from, next) => {
       this.$progress.start();
@@ -53,15 +66,7 @@ export default {
       // Change query params in `PLP` = Firstlyn Request to server for fresh datas, Lastly update the `URLSearchParams`
       if (to.name === "PLP") {
         const query = to.query;
-        this.$store.dispatch("main/updateInits", {
-          page: query.page,
-          rows: query.rows,
-          "price[min]": query["price[min]"],
-          "price[max]": query["price[max]"],
-          has_selling_stock: query.has_selling_stock || undefined,
-          sort: query.sort || 22,
-          q: query.q || undefined,
-        });
+        this.updateInits(query);
         this.updateSearchParams(query);
       }
       next();
