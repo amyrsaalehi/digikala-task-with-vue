@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapState } from "vuex";
 import Loader from "@/components/shared/Loader.vue";
 import Image from "@/components/Details/Image.vue";
 import Prices from "@/components/Details/Prices.vue";
@@ -35,11 +35,9 @@ export default {
     );
   },
   computed: {
-    ...mapGetters({
-      found: "currentProduct/found",
-      product: "currentProduct/product",
-      loading: "currentProduct/loading",
-    }),
+    ...mapState("currentProduct", "found"),
+    ...mapState("currentProduct", "product"),
+    ...mapState("currentProduct", "loading"),
   },
 };
 </script>

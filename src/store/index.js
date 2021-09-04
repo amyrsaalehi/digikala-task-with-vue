@@ -7,10 +7,6 @@ import currentProduct from './currentProduct'
 
 export default createStore({
     plugins: [createLogger()],
-    state: {},
-    mutations: {},
-    actions: {},
-    getters: {},
     modules: {
         main,
         searchParams,

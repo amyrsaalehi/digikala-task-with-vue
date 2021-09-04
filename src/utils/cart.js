@@ -1,4 +1,4 @@
-import { CART_LOCALSTORAGE_KEY } from '../constants/index'
+import { CART_LOCALSTORAGE_KEY } from '@/constants/index'
 
 export function updateCart(store, type, paylaod, storage) {
     store.commit(type, paylaod);
@@ -9,7 +9,7 @@ export function updateCart(store, type, paylaod, storage) {
 }
 
 export function isProductInCart(store, id) {
-    const ids = getIdsOfProducts(store.getters["cart/getProducts"]);
+    const ids = getIdsOfProducts(store.state.cart.products);
     return ids.includes(id)
 }
 
@@ -29,10 +29,7 @@ export function restoreCartDatas(store, storage) {
         console.log('There is No data');
         return;
     }
-
     const data = JSON.parse(rawData);
-
-    console.log('data for restore', data)
 
     store.commit('cart/restoreCart', data)
 }

@@ -10,22 +10,16 @@
 </template>
 
 <script>
-import Card from "./Card.vue";
-import Loader from "../../shared/Loader.vue";
-import { useStore } from "vuex";
-import { computed } from "@vue/reactivity";
+import Card from "@/components/Home/Products/Card.vue";
+import Loader from "@/components/shared/Loader.vue";
+import { mapState } from "vuex";
 
 export default {
   name: "Products",
   components: { Loader, Card },
   props: ["products"],
-  setup() {
-    const store = useStore();
-    const found = computed(() => store.getters["main/getFound"]);
-
-    return {
-      found,
-    };
+  computed: {
+    ...mapState("main", ["found"]),
   },
 };
 </script>

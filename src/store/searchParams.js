@@ -37,6 +37,4 @@ export default {
             state.rows = rows;
         },
     },
-    actions: {},
-    getters: {}
 }
