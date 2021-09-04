@@ -6,19 +6,31 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useStore } from "vuex";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
-  name: "Switch",
   setup() {
     const store = useStore();
-    const checked = ref(false);
+    const route = useRoute();
+    const router = useRouter();
+    const checked = ref(
+      route.query.has_selling_stock == 1 ||
+        store.state.searchParams.has_selling_stock === 1
+    );
 
     function toggleSwtich(e) {
       checked.value = e.target.checked;
       store.commit("searchParams/toggleHasSellingStock", checked.value ? 1 : 0);
     }
+
+    watch(checked, (val) => {
+      let query = Object.assign({}, route.query, {
+        has_selling_stock: val ? 1 : undefined,
+      });
+      router.replace({ query });
+    });
 
     return {
       checked,

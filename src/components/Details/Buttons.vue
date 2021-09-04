@@ -15,15 +15,15 @@ export default {
   props: ["product"],
   methods: {
     addToCart() {
-      if (!isProductInCart(this.$store, this.product.value.id)) {
+      if (!isProductInCart(this.$store, this.product.id)) {
         updateCart(
           this.$store,
           "cart/addProduct",
           {
-            id: this.product.value.id,
-            title: this.product.value.title,
-            images: this.product.value.images,
-            price: this.product.value.price,
+            id: this.product.id,
+            title: this.product.title,
+            images: this.product.images,
+            price: this.product.price,
             count: 1,
           },
           window.localStorage
@@ -32,7 +32,7 @@ export default {
         updateCart(
           this.$store,
           "cart/addCount",
-          this.product.value.id,
+          this.product.id,
           window.localStorage
         );
       }
