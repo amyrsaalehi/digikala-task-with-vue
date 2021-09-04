@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Nav from "./components/semantics/Nav.vue";
-import Main from "./components/semantics/Main.vue";
-import { restoreCartDatas } from "./utils/cart";
+import Nav from "@/components/semantics/Nav.vue";
+import Main from "@/components/semantics/Main.vue";
+import { restoreCartDatas } from "@/utils/cart";
 
 export default {
   name: "App",

@@ -13,7 +13,6 @@
 <script>
 import { split3Digits } from "@/utils/helpers";
 export default {
-  // TODO: make it 3digits
   props: ["product"],
   computed: {
     sellingPrice() {

@@ -27,7 +27,7 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
-import { updateCart } from "../../utils/cart";
+import { updateCart } from "@/utils/cart";
 
 export default {
   props: ["product"],

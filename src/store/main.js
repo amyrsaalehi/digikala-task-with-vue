@@ -1,5 +1,5 @@
-import { BASE_URL } from '../constants'
-import { getFetchConfigs } from '../constants/configs'
+import { BASE_URL } from '@/constants'
+import { getFetchConfigs } from '@/constants/configs'
 import axios from 'axios';
 
 export default {
@@ -72,5 +72,4 @@ export default {
                 })
         },
     },
-    getters: {}
 }

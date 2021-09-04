@@ -1,8 +1,8 @@
 import { createLogger, createStore } from 'vuex'
-import main from './main'
-import searchParams from './searchParams'
-import cart from './cart'
-import currentProduct from './currentProduct'
+import main from '@/store/main'
+import searchParams from '@/store/searchParams'
+import cart from '@/store/cart'
+import currentProduct from '@/store/currentProduct'
 
 
 export default createStore({

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Modal from "../Cart/Modal.vue";
+import Modal from "@/components/Cart/Modal.vue";
 export default {
   components: { Modal },
   name: "Nav",

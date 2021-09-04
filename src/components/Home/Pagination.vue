@@ -20,7 +20,6 @@ import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 export default {
-  name: "Pagination",
   props: ["maxPage", "shouldShow"],
   setup(props) {
     const store = useStore();

@@ -1,7 +1,7 @@
-import { BASE_URL } from '../constants';
-import { getFetchConfigs } from '../constants/configs';
+import { BASE_URL } from '@/constants';
+import { getFetchConfigs } from '@/constants/configs';
 import axios from 'axios';
-import { calculateDiscountPercentage } from '../utils/helpers'
+import { calculateDiscountPercentage } from '@/utils/helpers'
 
 export default {
     namespaced: true,

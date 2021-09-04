@@ -26,11 +26,8 @@
 <script>
 import { computed } from "@vue/reactivity";
 import { useStore } from "vuex";
-import { updateCart, isProductInCart } from "../../../utils/cart";
-import {
-  split3Digits,
-  calculateDiscountPercentage,
-} from "../../../utils/helpers";
+import { updateCart, isProductInCart } from "@/utils/cart";
+import { split3Digits, calculateDiscountPercentage } from "@/utils/helpers";
 
 export default {
   props: ["product"],

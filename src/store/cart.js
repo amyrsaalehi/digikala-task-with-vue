@@ -1,4 +1,4 @@
-import { split3Digits, calculateDiscountPercentage } from '../utils/helpers'
+import { split3Digits, calculateDiscountPercentage } from '@/utils/helpers'
 
 export default {
     namespaced: true,

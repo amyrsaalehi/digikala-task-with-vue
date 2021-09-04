@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '@/views/Home.vue'
 
 const routes = [{
         path: '/',
@@ -13,7 +13,7 @@ const routes = [{
         path: '/product/:id',
         name: 'PDP',
         component: () =>
-            import ('../views/Details.vue'),
+            import ('@/views/Details.vue'),
         meta: {
             title: 'Product'
         }
@@ -22,7 +22,7 @@ const routes = [{
         path: '/cart',
         name: 'Cart',
         component: () =>
-            import ('../views/Cart.vue'),
+            import ('@/views/Cart.vue'),
         meta: {
             title: 'Cart'
         }
@@ -31,7 +31,7 @@ const routes = [{
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: () =>
-            import ('../views/404.vue'),
+            import ('@/views/404.vue'),
         meta: {
             title: '404 | Not Found'
         }
