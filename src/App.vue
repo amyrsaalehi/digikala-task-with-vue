@@ -19,29 +19,32 @@ export default {
   },
   created() {
     this.$progress.start();
+    // Restore Cart Datas
     restoreCartDatas(this.$store, window.localStorage);
+    // Router Befor
     this.$router.beforeEach(async (to, from, next) => {
       this.$progress.start();
+
+      // Redirect from '/' to '/?query'
       if (to.fullPath === "/") {
         this.$router.push("/?page=1&rows=10&price[min]=0&price[max]=0&sort=22");
         next();
         return;
       }
+
+      // Change query params in `PLP` = Firstly remove all Old Datas ,Then Request to server for fresh datas, Lastly update the `URLSearchParams`
       if (to.name === "PLP") {
         const query = to.query;
-        (async () => {
-          this.$store.commit("main/clearInits");
-          await this.$store.dispatch("main/getProducts", {
-            page: query.page,
-            rows: query.rows,
-            "price[min]": query["price[min]"],
-            "price[max]": query["price[max]"],
-            has_selling_stock: query.has_selling_stock || undefined,
-            sort: query.sort || 22,
-            q: query.q || undefined,
-          });
-        })();
-
+        this.$store.commit("main/clearInits");
+        this.$store.dispatch("main/getProducts", {
+          page: query.page,
+          rows: query.rows,
+          "price[min]": query["price[min]"],
+          "price[max]": query["price[max]"],
+          has_selling_stock: query.has_selling_stock || undefined,
+          sort: query.sort || 22,
+          q: query.q || undefined,
+        });
         this.$store.commit("searchParams/changeSearchParams", {
           has_selling_stock: query.has_selling_stock || 0,
           minPrice: query["price[min]"] || 0,
@@ -55,6 +58,7 @@ export default {
       next();
     });
 
+    // Router after
     this.$router.afterEach(() => {
       window.scrollTo(0, 0);
       this.$progress.finish();

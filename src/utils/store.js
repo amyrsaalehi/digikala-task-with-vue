@@ -1,3 +1,4 @@
+// These can be use for Composition API
 import { computed } from 'vue';
 import { useStore } from 'vuex';
 
