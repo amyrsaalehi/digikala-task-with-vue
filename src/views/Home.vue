@@ -1,6 +1,6 @@
 <template>
   <Filters />
-  <Products :products="allProducts" :loading="loading" />
+  <Products :products="allProducts" />
 </template>
 
 <script>
@@ -21,38 +21,14 @@ export default {
   },
   computed: {
     ...mapState("main", ["allProducts"]),
-    ...mapState("main", ["products"]),
     ...mapState("searchParams", ["current_page"]),
-    ...mapState("main", ["found"]),
-    ...mapState("main", ["allFound"]),
     shouldLoadMore() {
       return this.scrollTop + this.clientHeight >= this.scrollHeight - 10;
     },
-    loading() {
-      return (
-        this.allProducts.length === this.products.length ||
-        !this.found ||
-        !this.allFound ||
-        this.allProducts.length === 0
-      );
-    },
-    // canScroll() {
-    //   return !this.loading && !this.shouldLoadMore;
-    // },
   },
   watch: {
-    // canScroll(val) {
-    //   if (!val) {
-    //     this.disableScrolling();
-    //   } else {
-    //     this.enableScrolling();
-    //   }
-    // },
     page(val, oldVal) {
       val === oldVal + 1 && this.loadMorePosts();
-    },
-    loading(val) {
-      console.log(val);
     },
   },
   methods: {
@@ -73,12 +49,6 @@ export default {
         console.error("add page");
       }
     },
-    // disableScrolling() {
-    //   document.documentElement.style.overflow = "hidden";
-    // },
-    // enableScrolling() {
-    //   document.documentElement.style.overflow = "auto";
-    // },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);

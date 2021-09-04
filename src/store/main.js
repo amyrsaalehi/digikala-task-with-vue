@@ -20,7 +20,8 @@ export default {
             total_pages: 0
         },
         found: true,
-        allFound: true
+        allFound: false,
+        finishsed: false
     }),
     mutations: {
         clearInits(state) {
@@ -36,6 +37,9 @@ export default {
                 total_items: 0,
                 total_pages: 0
             };
+            state.found = true
+            state.allFound = false
+            state.finishsed = false
         },
         updateInits(state, { filters, products, sort, pager }) {
             state.filters.price = {
@@ -54,11 +58,15 @@ export default {
             state.found = true;
         },
         notFound(state) {
-            state.products = undefined;
+            state.allProducts = undefined
             state.allFound = false;
+            state.found = false;
         },
         loadingFoundAll(state) {
             state.allFound = false
+        },
+        finished(state) {
+            state.finishsed = true
         }
     },
     actions: {
@@ -75,6 +83,9 @@ export default {
                         if (res.data.data.pager.total_items == 0) {
                             commit('notFound')
                             return;
+                        }
+                        if (res.data.data.pager.current_page === res.data.data.pager.current_page) {
+                            commit('finished')
                         }
                         commit('updateInits', res.data.data);
                     } else {
