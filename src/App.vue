@@ -17,6 +17,19 @@ export default {
     Nav,
     Main,
   },
+  methods: {
+    updateSearchParams(query) {
+      this.$store.commit("searchParams/changeSearchParams", {
+        has_selling_stock: parseInt(query.has_selling_stock) || 0,
+        minPrice: parseInt(query["price[min]"]) || 0,
+        maxPrice: parseInt(query["price[max]"]) || 0,
+        sort: parseInt(query.sort) || 22,
+        current_page: parseInt(query.page) || 1,
+        rows: parseInt(query.rows) || 25,
+        q: query.q || undefined,
+      });
+    },
+  },
   created() {
     this.$progress.start();
     // Restore Cart Datas
@@ -32,11 +45,15 @@ export default {
         return;
       }
 
-      // Change query params in `PLP` = Firstly remove all Old Datas ,Then Request to server for fresh datas, Lastly update the `URLSearchParams`
+      // When history pushed from a page to another remove all `Old Datas`
+      if (from.name !== to.name) {
+        this.$store.commit("main/clearInits");
+      }
+
+      // Change query params in `PLP` = Firstlyn Request to server for fresh datas, Lastly update the `URLSearchParams`
       if (to.name === "PLP") {
         const query = to.query;
-        this.$store.commit("main/clearInits");
-        this.$store.dispatch("main/getProducts", {
+        this.$store.dispatch("main/updateInits", {
           page: query.page,
           rows: query.rows,
           "price[min]": query["price[min]"],
@@ -45,22 +62,14 @@ export default {
           sort: query.sort || 22,
           q: query.q || undefined,
         });
-        this.$store.commit("searchParams/changeSearchParams", {
-          has_selling_stock: query.has_selling_stock || 0,
-          minPrice: query["price[min]"] || 0,
-          maxPrice: query["price[max]"] || 0,
-          sort: query.sort || 22,
-          current_page: query.page || 1,
-          rows: query.rows || 25,
-          q: query.q || undefined,
-        });
+        this.updateSearchParams(query);
       }
       next();
     });
 
     // Router after
     this.$router.afterEach(() => {
-      window.scrollTo(0, 0);
+      // window.scrollTo(0, 0);
       this.$progress.finish();
     });
   },

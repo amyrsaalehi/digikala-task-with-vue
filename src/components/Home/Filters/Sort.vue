@@ -31,6 +31,7 @@ export default {
     watch(sort, (val) => {
       let query = Object.assign({}, route.query, {
         sort: val,
+        page: 1,
       });
       store.commit("searchParams/changeSort", val);
       router.replace({ query });

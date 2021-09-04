@@ -28,6 +28,7 @@ export default {
     watch(checked, (val) => {
       let query = Object.assign({}, route.query, {
         has_selling_stock: val ? 1 : undefined,
+        page: 1,
       });
       router.replace({ query });
     });

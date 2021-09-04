@@ -22,6 +22,7 @@ export default {
     search() {
       let query = Object.assign({}, this.$route.query, {
         q: this.q !== "" ? this.q : undefined,
+        page: 1,
       });
       this.$store.commit("searchParams/changeQuery", this.q);
       this.$router.replace({ query });

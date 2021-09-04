@@ -12,6 +12,7 @@ export default {
             }
         },
         products: [],
+        allProducts: [],
         sort: 22,
         pager: {
             current_page: 1,
@@ -27,6 +28,7 @@ export default {
                 max: 0
             };
             state.products = [];
+            state.allProducts = [];
             state.sort = 22;
             state.pager = {
                 current_page: 1,
@@ -42,6 +44,11 @@ export default {
             state.products = products;
             state.sort = sort.default;
             state.pager = pager;
+            if (pager.current_page > 1) {
+                state.allProducts.push(...products)
+            } else {
+                state.allProducts = products
+            }
             state.found = true;
         },
         notFound(state) {
@@ -50,7 +57,7 @@ export default {
         }
     },
     actions: {
-        getProducts({ commit }, query) {
+        updateInits({ commit }, query) {
             axios.get(`${BASE_URL}/search/`, {
                     ...getFetchConfigs,
                     params: {
