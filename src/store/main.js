@@ -1,5 +1,6 @@
 import { BASE_URL } from '@/constants'
 import { getFetchConfigs } from '@/constants/configs'
+import { split3Digits } from "@/utils/helpers";
 import axios from 'axios';
 
 export default {
@@ -84,7 +85,7 @@ export default {
                             commit('notFound')
                             return;
                         }
-                        if (res.data.data.pager.current_page === res.data.data.pager.current_page) {
+                        if (res.data.data.pager.current_page === res.data.data.pager.total_pages) {
                             commit('finished')
                         }
                         commit('updateInits', res.data.data);
@@ -96,4 +97,16 @@ export default {
                 })
         },
     },
+    getters: {
+        minPricePlaceHolder(state) {
+            return `قیمت از ${split3Digits(
+              state.filters.price.min
+            )} تومان`;
+        },
+        maxPricePlaceHolder(state) {
+            return `قیمت تا ${split3Digits(
+              state.filters.price.max
+            )} تومان`;
+        },
+    }
 }
