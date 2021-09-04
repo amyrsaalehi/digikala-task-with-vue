@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import Switch from "@/components/shared/Switch.vue";
+import Switch from "@/components/Home/Filters/Switch.vue";
 export default {
   components: { Switch },
 };
