@@ -50,6 +50,6 @@ form {
 .search-filter input {
   width: 100%;
   direction: rtl;
-  border: 1px solid #eee;
+  background: #eee;
 }
 </style>

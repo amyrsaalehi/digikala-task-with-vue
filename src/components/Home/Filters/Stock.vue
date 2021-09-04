@@ -24,7 +24,7 @@ li {
 
 .has-selling-stock-container {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row-reverse nowrap;
   justify-content: space-between;
   background-color: transparent;
   gap: 0.5rem;

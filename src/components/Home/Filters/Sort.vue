@@ -1,17 +1,18 @@
 <template>
   <li class="sort-filter">
-    <p>مرتب سازی</p>
-    <div class="sort-btn">
-      <button @click="sort = 22" :class="{ 'sort-btn-active': sort == 22 }">
-        مرتبط ترین
-      </button>
-      <button @click="sort = 4" :class="{ 'sort-btn-active': sort == 4 }">
-        بیشترین بازدید
-      </button>
-      <button @click="sort = 27" :class="{ 'sort-btn-active': sort == 27 }">
-        پیشنهاد کاربران
-      </button>
-    </div>
+    <Accordion title="مرتب سازی">
+      <div class="sort-btn">
+        <button @click="sort = 22" :class="{ 'sort-btn-active': sort == 22 }">
+          مرتبط ترین
+        </button>
+        <button @click="sort = 4" :class="{ 'sort-btn-active': sort == 4 }">
+          بیشترین بازدید
+        </button>
+        <button @click="sort = 27" :class="{ 'sort-btn-active': sort == 27 }">
+          پیشنهاد کاربران
+        </button>
+      </div>
+    </Accordion>
   </li>
 </template>
 
@@ -19,8 +20,10 @@
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
+import Accordion from "../../shared/Accordion.vue";
 
 export default {
+  components: { Accordion },
   setup() {
     const store = useStore();
     const route = useRoute();
@@ -60,6 +63,7 @@ li {
   font-size: 1.2rem;
   margin-top: 1rem;
   direction: rtl;
+  flex: 0 1 100%;
 }
 
 .sort-filter > p {
@@ -73,6 +77,7 @@ li {
   flex-flow: row wrap;
   justify-content: center;
   gap: 20px;
+  width: 100%;
 }
 
 .sort-filter p {

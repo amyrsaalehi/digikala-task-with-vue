@@ -1,11 +1,9 @@
 <template>
   <ul class="filter-container">
     <SearchBox />
+    <Sort />
     <PriceRange />
-    <div class="sort-stock">
-      <Sort />
-      <Stock />
-    </div>
+    <Stock />
   </ul>
 </template>
 
@@ -26,10 +24,5 @@ ul {
   flex-flow: column wrap;
   justify-content: space-between;
   gap: 5px;
-}
-.sort-stock {
-  display: flex;
-  flex-flow: row-reverse wrap;
-  justify-content: space-between;
 }
 </style>

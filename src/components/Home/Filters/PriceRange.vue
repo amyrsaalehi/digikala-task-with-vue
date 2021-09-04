@@ -1,25 +1,29 @@
 <template>
   <li class="price-range-filter">
-    <form @submit.prevent="search">
-      <input
-        type="number"
-        v-model="minPrice"
-        :placeholder="minPricePlaceHolder"
-      />
-      <input
-        type="number"
-        v-model="maxPrice"
-        :placeholder="maxPricePlaceHolder"
-      />
-      <input type="submit" value="اعمال" />
-    </form>
+    <Accordion title="بازه قیمت">
+      <form @submit.prevent="search">
+        <input
+          type="number"
+          v-model="minPrice"
+          :placeholder="minPricePlaceHolder"
+        />
+        <input
+          type="number"
+          v-model="maxPrice"
+          :placeholder="maxPricePlaceHolder"
+        />
+        <input type="submit" value="اعمال" />
+      </form>
+    </Accordion>
   </li>
 </template>
 
 <script>
 import { mapGetters, mapState } from "vuex";
+import Accordion from "@/components/shared/Accordion.vue";
 
 export default {
+  components: { Accordion },
   data() {
     return {
       minPrice:
@@ -101,7 +105,9 @@ li {
   align-items: center;
   justify-content: center;
   gap: 1rem;
+  margin-top: 20px;
 }
+
 form {
   width: 100%;
   height: 100%;
